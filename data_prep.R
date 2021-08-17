@@ -45,12 +45,10 @@ cols<-names(wio.roi)
 filtercols<-cols[!cols %in% c("OBJECTID","Territory1")]
 roi.wio <- wio.roi[,!(names(wio.roi) %in% filtercols)] 
 
-#Project to wio projection
-
+#Project to Afica_Albers
 afr.alb<-CRS("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs")
 
 roi.wio.alb<- spTransform(roi.wio, afr.alb)
-
 
 #create planning units of 1km2
 source("makegrid.R")
@@ -64,6 +62,25 @@ hex_grid_c <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 1000000, cl
 plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
 plot(hex_grid_c, border = "orange", add = TRUE)
 box()
+
+# Extract polygon/p ID's
+pid <- sapply(slot(hex_grid_c, "polygons"), function(x) slot(x, "ID")) 
+
+# Create dataframe with correct rownames
+p.df <- data.frame( ID=1:length(hex_grid), row.names = pid)    
+
+# Try coersion again and check class
+pu <- SpatialPolygonsDataFrame(hex_grid, p.df)
+class(pu) 
+setwd('~/OneDrive - Macquarie University/Projects/WIOMSA/Connectivity/connect.share/Marxan/planningUnits')
+#writeOGR(layer=pu,dsn='.', "planningUnits.25", driver="ESRI Shapefile")
+writeOGR(obj=pu,dsn='.', layer="wioplanningUnits", driver="ESRI Shapefile",overwrite_layer=TRUE)
+plot(pu)
+
+
+
+
+
 
 
 ##Burn MPAs onto the planning units
