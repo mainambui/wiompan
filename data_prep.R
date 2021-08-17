@@ -2,6 +2,7 @@ _________________
 ##download Gurobi Optimizer fom the website https://www.gurobi.com/downloads/gurobi-software/
 ##obtain the academic license
 ##install the license on the terminal using: grbgetkey ad0445fe-fcf2-11eb-ba3c-0242ac120002
+##grbgetkey fa525344-ff4c-11eb-b77b-0242ac120002##server license
 ##install Gurobi on R using the cide below 
 #https://www.gurobi.com/documentation/9.1/refman/ins_the_r_package.html
 #Resources
