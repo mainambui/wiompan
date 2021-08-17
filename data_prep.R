@@ -80,9 +80,6 @@ plot(pu)
 
 
 
-
-
-
 ##Burn MPAs onto the planning units
 
 
