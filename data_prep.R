@@ -2,6 +2,8 @@ _________________
 ##download Gurobi Optimizer fom the website https://www.gurobi.com/downloads/gurobi-software/
 ##obtain the academic license
 ##install the license on the terminal using: grbgetkey ad0445fe-fcf2-11eb-ba3c-0242ac120002
+##grbgetkey fa525344-ff4c-11eb-b77b-0242ac120002# license server
+#info  : GRB_LICENSE_FILE=/Users/maina/Gurobi/gurobi.lic
 ##install Gurobi on R using the cide below 
 #https://www.gurobi.com/documentation/9.1/refman/ins_the_r_package.html
 #Resources
@@ -12,7 +14,7 @@ _________________
 #if (!require(remotes)) install.packages("remotes")
 #remotes::install_github("prioritizr/prioritizr")
 #if (!require(devtools))
- # install.packages("devtools")
+#("devtools")
 #devtools::install_github("prioritizr/prioritizrdata")
 ______________________________________________
 # load packages
@@ -33,49 +35,57 @@ library(dplyr)
 rm(list=ls())
 #wio extent
 #read eez file
-wio.eez<-readOGR(dsn='~/OneDrive - Macquarie University/Projects/WIOMSA/Connectivity/connect.share/shapefiles/','wioeez')
+wio.eez<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_EEZ/','WIO_EEZ')
+wio.shelf<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Shelf')
+wio.slope<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Slope')
+
 
 ##select countries of interest from eez and delete columns
-eez<-unique(wio.eez@data$Territory1)
-non.wio<-c("Djibouti","Maldives","Chagos Archipelago")
-wio<-eez[!eez %in% non.wio]
-wio.roi <- subset(wio.eez, Territory1 %in% wio)
-
-cols<-names(wio.roi)
-filtercols<-cols[!cols %in% c("OBJECTID","Territory1")]
-roi.wio <- wio.roi[,!(names(wio.roi) %in% filtercols)] 
+#eez<-unique(wio.eez@data$Territory1)
+#non.wio<-c("Djibouti","Maldives","Chagos Archipelago")
+#wio<-eez[!eez %in% non.wio]
+#wio.roi <- subset(wio.eez, Territory1 %in% wio)
+#cols<-names(wio.roi)
+#filtercols<-cols[!cols %in% c("OBJECTID","Territory1")]
+#roi.wio <- wio.roi[,!(names(wio.roi) %in% filtercols)] 
 
 #Project to Afica_Albers
 afr.alb<-CRS("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs")
 
-roi.wio.alb<- spTransform(roi.wio, afr.alb)
+roi.wio.alb<- spTransform(wio.eez, afr.alb)
 
 #create planning units of 1km2
 source("makegrid.R")
 # hex - without clipping
-#hex_grid <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 1000000, #clip = FALSE)
+hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = FALSE)
+hex_grid_slope <- make_grid(wio.slope, type = "hexagonal", cell_area = 1000000, clip = FALSE)
 #plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
 #plot(hex_grid, border = "orange", add = TRUE)
 #box()
 # hex - with clipping
-hex_grid_c <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 1000000, clip = TRUE)
-plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
-plot(hex_grid_c, border = "orange", add = TRUE)
-box()
+#hex_grid_c <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 1000000, clip = TRUE)
+#plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
+#plot(hex_grid_c, border = "orange", add = TRUE)
+#box()
 
 # Extract polygon/p ID's
-pid <- sapply(slot(hex_grid_c, "polygons"), function(x) slot(x, "ID")) 
+pid.shelf <- sapply(slot(hex_grid_shelf, "polygons"), function(x) slot(x, "ID")) 
+pid.slope <- sapply(slot(hex_grid_slope, "polygons"), function(x) slot(x, "ID")) 
 
 # Create dataframe with correct rownames
-p.df <- data.frame( ID=1:length(hex_grid), row.names = pid)    
+p.df.shelf <- data.frame( ID=1:length(hex_grid_shelf), row.names = pid.shelf)    
+p.df.slope <- data.frame( ID=1:length(hex_grid_slope), row.names = pid.slope)    
 
 # Try coersion again and check class
-pu <- SpatialPolygonsDataFrame(hex_grid, p.df)
-class(pu) 
-setwd('~/OneDrive - Macquarie University/Projects/WIOMSA/Connectivity/connect.share/Marxan/planningUnits')
-#writeOGR(layer=pu,dsn='.', "planningUnits.25", driver="ESRI Shapefile")
-writeOGR(obj=pu,dsn='.', layer="wioplanningUnits", driver="ESRI Shapefile",overwrite_layer=TRUE)
-plot(pu)
+pu.shelf <- SpatialPolygonsDataFrame(hex_grid_shelf, p.df.shelf)
+pu.slope <- SpatialPolygonsDataFrame(hex_grid_slope, p.df.slope)
+
+class(pu.shelf) 
+class(pu.slope) 
+
+writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/ProcessOutputs', layer="wioShelf_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+writeOGR(obj=pu.slope,dsn='~/Documents/tbca/ProcessOutputs', layer="wioSlope_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+
 
 
 
