@@ -63,6 +63,8 @@ source("makegrid.R")
 # hex - without clipping
 hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = FALSE)
 hex_grid_slope <- make_grid(wio.slope, type = "hexagonal", cell_area = 1000000, clip = FALSE)
+hex_grid_eez <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 25000000, clip = FALSE)
+
 #plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
 #plot(hex_grid, border = "orange", add = TRUE)
 #box()
@@ -75,20 +77,24 @@ hex_grid_slope <- make_grid(wio.slope, type = "hexagonal", cell_area = 1000000, 
 # Extract polygon/p ID's
 pid.shelf <- sapply(slot(hex_grid_shelf, "polygons"), function(x) slot(x, "ID")) 
 pid.slope <- sapply(slot(hex_grid_slope, "polygons"), function(x) slot(x, "ID")) 
+pid.eez <- sapply(slot(hex_grid_eez, "polygons"), function(x) slot(x, "ID"))
 
 # Create dataframe with correct rownames
 p.df.shelf <- data.frame( ID=1:length(hex_grid_shelf), row.names = pid.shelf)    
-p.df.slope <- data.frame( ID=1:length(hex_grid_slope), row.names = pid.slope)    
+p.df.slope <- data.frame( ID=1:length(hex_grid_slope), row.names = pid.slope)  
+p.df.eez <- data.frame( ID=1:length(hex_grid_eez), row.names = pid.eez)
 
 # Try coersion again and check class
 pu.shelf <- SpatialPolygonsDataFrame(hex_grid_shelf, p.df.shelf)
-pu.slope <- SpatialPolygonsDataFrame(hex_grid_slope, p.df.slope)
-
 class(pu.shelf) 
+pu.slope <- SpatialPolygonsDataFrame(hex_grid_slope, p.df.slope)
 class(pu.slope) 
+pu.eez <- SpatialPolygonsDataFrame(hex_grid_eez, p.df.eez)
+class(pu.eez) 
 
-writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/ProcessOutputs', layer="wioShelf_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
-writeOGR(obj=pu.slope,dsn='~/Documents/tbca/ProcessOutputs', layer="wioSlope_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/PlanningUnits', layer="wioShelf_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+writeOGR(obj=pu.slope,dsn='~/Documents/tbca/PlanningUnits', layer="wioSlope_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+writeOGR(obj=pu.eez,dsn='~/Documents/tbca/PlanningUnits', layer="wioEEZ_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 
 
 
@@ -112,8 +118,9 @@ hex_cover$cover_area[is.na(hex_cover$cover_area)] <- 0
 hex_cover$pct_cover <- 100 * hex_cover$cover_area /hex_cover$area
 
 
-
-
+##############
+#Priortize R
+################
 
 
 
