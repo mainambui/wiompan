@@ -5,6 +5,8 @@ library(igraph)
 library(here)
 library(ggpubr)
 library(reshape)
+#note - change buffer to 8km
+
 #1.1 Identifying the percentage of top larval sources and sinks protected across Countries 
 
 #EEZ Connectivity reef cells (dataset built in QGIS - overlaying Connectivity.shp and WIO_EEZ.shp)
@@ -18,10 +20,11 @@ Summary_CON <- as.data.frame(EEZ_CON %>%
   summarise(n = n()))
 #sum(Summary_CON$n) #751 reef cells
 
-#MPAs Connectivity reef cells within MPAs (5km buffer) (dataset build in QGIS - overlaying connectivity.shp using buffer 5km and MPa.shp)
-MPA_Con_B<- read.csv(here("_data_Target11","connectivity_MPA_buffered.csv"))
-EEZ_CON$protection <- ifelse(EEZ_CON$ID_2 %in% MPA_Con_B$ID, "protected", "fished")
-dim(EEZ_CON[EEZ_CON$protection == "protected",]) #249
+#MPAs Connectivity reef cells within MPAs (5km and 8Km buffer) (dataset build in QGIS - overlaying connectivity.shp using buffer 5km and MPa.shp)
+#MPA_Con_B<- read.csv(here("_data_Target11","connectivity_MPA_buffered.csv")) #5km 
+MPA_Con_B<- read.csv(here("_data_Target11","MPA_Larval_Connectivity.csv")) #8km buffer
+EEZ_CON$protection <- ifelse(EEZ_CON$ID_2 %in% MPA_Con_B$ID_2, "protected", "fished")
+dim(EEZ_CON[EEZ_CON$protection == "protected",]) #347
 #
 Summary_CON_MPA <- as.data.frame(EEZ_CON[EEZ_CON$protection == "protected",] %>% 
                                group_by(Sovereign) %>%
