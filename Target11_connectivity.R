@@ -20,11 +20,10 @@ Summary_CON <- as.data.frame(EEZ_CON %>%
   summarise(n = n()))
 #sum(Summary_CON$n) #751 reef cells
 
-#MPAs Connectivity reef cells within MPAs (5km and 8Km buffer) (dataset build in QGIS - overlaying connectivity.shp using buffer 5km and MPa.shp)
-#MPA_Con_B<- read.csv(here("_data_Target11","connectivity_MPA_buffered.csv")) #5km 
-MPA_Con_B<- read.csv(here("_data_Target11","MPA_Larval_Connectivity.csv")) #8km buffer
-EEZ_CON$protection <- ifelse(EEZ_CON$ID_2 %in% MPA_Con_B$ID_2, "protected", "fished")
-dim(EEZ_CON[EEZ_CON$protection == "protected",]) #347
+#MPAs Connectivity reef cells within MPAs (buffered radius 4km) (dataset build in QGIS - overlaying connectivity.shp using buffer 4km and MPa.shp)
+MPA_Con_B<- read.csv(here("_data_Target11","MPA_Connectivity_Overlay.csv")) #8km buffer
+EEZ_CON$protection <- ifelse(EEZ_CON$ID_2 %in% MPA_Con_B$ID, "protected", "fished")
+dim(EEZ_CON[EEZ_CON$protection == "protected",]) #295
 #
 Summary_CON_MPA <- as.data.frame(EEZ_CON[EEZ_CON$protection == "protected",] %>% 
                                group_by(Sovereign) %>%
