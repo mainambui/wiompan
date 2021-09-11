@@ -96,7 +96,7 @@ writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/PlanningUnits', layer="wioShelf_1km"
 writeOGR(obj=pu.slope,dsn='~/Documents/tbca/PlanningUnits', layer="wioSlope_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 writeOGR(obj=pu.eez,dsn='~/Documents/tbca/PlanningUnits', layer="wioEEZ_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 
-
+rm(list=ls())
 
 
 
