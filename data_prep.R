@@ -22,6 +22,7 @@ _________________
 #devtools::install_github("prioritizr/prioritizrdata")
 ______________________________________________
 # load packages
+rm(list=ls())
 library(prioritizr)
 library(prioritizrdata)
 library(sf)
@@ -92,6 +93,7 @@ class(pu.slope)
 pu.eez <- SpatialPolygonsDataFrame(hex_grid_eez, p.df.eez)
 class(pu.eez) 
 
+##please write Large data to (~/volumes/Data)
 writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/PlanningUnits', layer="wioShelf_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 writeOGR(obj=pu.slope,dsn='~/Documents/tbca/PlanningUnits', layer="wioSlope_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 writeOGR(obj=pu.eez,dsn='~/Documents/tbca/PlanningUnits', layer="wioEEZ_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
