@@ -3,18 +3,6 @@
 library(here)
 library(dplyr)
 library(tidyverse)
-#KBA area by country 
-KBA_area_total<-read.csv(here("_data_Target11","KBAs_area.csv"))
-
-KBA_area_total$area_Km2_KBAs <- KBA_area_total$area_m2_KBAs/1000000
-KBA_totalArea_by_Country <- as.data.frame(KBA_area_total[,c(2,20)] %>%
-                                            group_by(Country) %>%
-                                            summarise_all(list(sum)))
-
-KBA_totalArea_by_Country_WIO <- KBA_totalArea_by_Country[KBA_totalArea_by_Country$Country  %in% c("Tanzania", "Somalia","Kenya","Mozambique","Comoros",
-                                                                     "Seychelles","Madagascar","Réunion (to France)","Mayotte (to France)",
-                                                                     "Mauritius"),]
-
 # KBA and EEZ layers were merged in QGis - Polygons intercepting were considered within EEZ boundaries
 #note all KBAs identify either within or intercepting EEZ were considered.
 KBA_EEZ <- read.csv(here("_data_Target11","KBA_EEZ.csv"))
@@ -54,16 +42,34 @@ final_summary_by_Country$area_KM2_int <- round(final_summary_by_Country$area_KM2
 
 final_summary_by_Country$percent_protected_within <- round((final_summary_by_Country$area_KM2_KBA_Protected/final_summary_by_Country$area_KM2_int)*100, 2)
 final_summary_by_Country$percent_protected <- round((final_summary_by_Country$area_KM2_KBA_Protected/final_summary_by_Country$area_KM2_KBA)*100, 2)
-prem_KBA_summary<-final_summary_by_Country[!final_summary_by_Country$Sovereign == "South Africa",]
+prem_KBA_summary<-final_summary_by_Country[!final_summary_by_Country$Sovereign == "South Africa",] #NOTE - South africa KBA data is missing // 
 
+#WIO -  Regional % of coastal KBAs protected
 sum(prem_KBA_summary$area_KM2_KBA_Protected)/sum(prem_KBA_summary$area_KM2_KBA)*100
 
-#NOTE - MISSING KBA DATA FOR SOUTH AFRICA - request again
-#NOTE - SOMALIA has no MPA data
 
-#turtle nest
-View(KBA_MPA_int)
+#Turtle nest
+turtle<-read.csv(here("_data_Target11", "Turtle_nest_MPA.csv"))
+dim(turtle) #178 turtle nests identified in the region
+turtle$nest_status_protection <- ifelse(turtle$COUNTRY_2 == "", "threatened", "protected")
+turtle$Country_sum<- ifelse(turtle$Country == "Mayotte", "France",
+                            ifelse(turtle$Country == "Réunion", "France",
+                                   ifelse(turtle$Country == "French Southern Territories","France",turtle$Country)))
+#unique(turtle$Country_sum)
+#No data recorded for Mauritius and Somalia
+nest_protection_summary <- as.data.frame(turtle %>%
+                              group_by (Country_sum) %>%
+                                  summarise(n=n()))
 
+nest_protected_sum <- as.data.frame(turtle[turtle$nest_status_protection == "protected",] %>%
+                                           group_by (Country_sum) %>%
+                                           summarise(n=n()))
 
+nest_protection_summary<-left_join(nest_protection_summary,nest_protected_sum,by="Country_sum",all=T)
+colnames(nest_protection_summary) <- c("Country","Total Number Nests", "Total number Nest protected")
+nest_protection_summary[is.na(nest_protection_summary)] <- 0
 
+nest_protection_summary$percent <- nest_protection_summary$`Total number Nest protected`/nest_protection_summary$`Total Number Nests`*100
+
+sum(nest_protection_summary$`Total number Nest protected`)/(sum(nest_protection_summary$`Total Number Nests`))*100
 
