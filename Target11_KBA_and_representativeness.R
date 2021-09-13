@@ -3,6 +3,18 @@
 library(here)
 library(dplyr)
 library(tidyverse)
+#KBA area by country 
+KBA_area_total<-read.csv(here("_data_Target11","KBAs_area.csv"))
+
+KBA_area_total$area_Km2_KBAs <- KBA_area_total$area_m2_KBAs/1000000
+KBA_totalArea_by_Country <- as.data.frame(KBA_area_total[,c(2,20)] %>%
+                                            group_by(Country) %>%
+                                            summarise_all(list(sum)))
+
+KBA_totalArea_by_Country_WIO <- KBA_totalArea_by_Country[KBA_totalArea_by_Country$Country  %in% c("Tanzania", "Somalia","Kenya","Mozambique","Comoros",
+                                                                     "Seychelles","Madagascar","Réunion (to France)","Mayotte (to France)",
+                                                                     "Mauritius"),]
+
 # KBA and EEZ layers were merged in QGis - Polygons intercepting were considered within EEZ boundaries
 #note all KBAs identify either within or intercepting EEZ were considered.
 KBA_EEZ <- read.csv(here("_data_Target11","KBA_EEZ.csv"))
@@ -42,6 +54,16 @@ final_summary_by_Country$area_KM2_int <- round(final_summary_by_Country$area_KM2
 
 final_summary_by_Country$percent_protected_within <- round((final_summary_by_Country$area_KM2_KBA_Protected/final_summary_by_Country$area_KM2_int)*100, 2)
 final_summary_by_Country$percent_protected <- round((final_summary_by_Country$area_KM2_KBA_Protected/final_summary_by_Country$area_KM2_KBA)*100, 2)
+prem_KBA_summary<-final_summary_by_Country[!final_summary_by_Country$Sovereign == "South Africa",]
+
+sum(prem_KBA_summary$area_KM2_KBA_Protected)/sum(prem_KBA_summary$area_KM2_KBA)*100
+
+#NOTE - MISSING KBA DATA FOR SOUTH AFRICA - request again
+#NOTE - SOMALIA has no MPA data
 
 #turtle nest
+View(KBA_MPA_int)
+
+
+
 
