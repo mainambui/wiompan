@@ -70,6 +70,48 @@ colnames(nest_protection_summary) <- c("Country","Total Number Nests", "Total nu
 nest_protection_summary[is.na(nest_protection_summary)] <- 0
 
 nest_protection_summary$percent <- nest_protection_summary$`Total number Nest protected`/nest_protection_summary$`Total Number Nests`*100
-
+#WIO regional 
 sum(nest_protection_summary$`Total number Nest protected`)/(sum(nest_protection_summary$`Total Number Nests`))*100
+
+###IBAs protected (same data as KBa but filtered by confirmed IBAs)
+IBA_EEZ <-  KBA_EEZ[KBA_EEZ$IbaStatus == "confirmed",]
+IBA_MPA_int <- KBA_MPA_int[KBA_MPA_int$IbaStatus == "confirmed",]
+IBA_EEZ_int <- KBA_EEZ_int[KBA_EEZ_int$IbaStatus == "confirmed",]
+
+#GENERATE % SUMMARY by Territory
+unique(IBA_EEZ$Sovereign) #9 territories/ 1 dispute
+length(unique(IBA_EEZ$SitRecID)) #111 IBAs within EEZ - use SitRecID
+length(unique(IBA_MPA_int$SitRecID)) #45 IBAs within EEZ
+#KBA area
+areaIBAs<-as.data.frame(aggregate(area_KM2_KBA ~ SitRecID + Country + Sovereign, IBA_EEZ, max))
+areaIBAs_Protected<-as.data.frame(aggregate(area_KM2_KBA_Protected ~ SitRecID + Country, IBA_MPA_int,sum))
+areaIBA_Summary<-left_join(areaIBAs, areaIBAs_Protected, by=c("SitRecID","Country"),all=T)
+areaIBA_Summary[is.na(areaIBA_Summary)] <- 0
+head(areaIBA_Summary)
+
+int_IBAEEZarea <- as.data.frame(IBA_EEZ_int[,c(19,21)] %>%
+                                  group_by(Sovereign) %>%
+                                  summarise_all(list(sum)))
+#Summary - total IBA area protected by Country
+final_summaryIBA_by_Country <- as.data.frame(areaIBA_Summary[,3:5] %>%
+                                            group_by(Sovereign) %>%
+                                            summarise_all(list(sum)))
+
+final_summaryIBA_by_Country <- left_join(final_summaryIBA_by_Country,int_IBAEEZarea,by='Sovereign')
+final_summaryIBA_by_Country$area_KM2_int <- round(final_summaryIBA_by_Country$area_KM2_int, 3)
+
+final_summaryIBA_by_Country$percent_protected_within <- round((final_summaryIBA_by_Country$area_KM2_KBA_Protected/final_summaryIBA_by_Country$area_KM2_int)*100, 2)
+final_summaryIBA_by_Country$percent_protected <- round((final_summaryIBA_by_Country$area_KM2_KBA_Protected/final_summaryIBA_by_Country$area_KM2_KBA)*100, 2)
+prem_IBA_summary<-final_summaryIBA_by_Country[!final_summaryIBA_by_Country$Sovereign == "South Africa",] #NOTE - South africa KBA data is missing // 
+
+#WIO -  Regional % of coastal IBAs protected
+sum(prem_IBA_summary$area_KM2_KBA_Protected)/sum(prem_IBA_summary$area_KM2_KBA)*100
+
+
+
+
+
+
+
+
 
