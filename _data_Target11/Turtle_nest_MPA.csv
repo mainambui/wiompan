@@ -1,0 +1,180 @@
+Country,ISO,Latitude,Longitude,Beach,Species,IDN,ID_MJ,MPA_NAME,COUNTRY_2,REGION,DESGNATION,STATUS,CATEGORY,CATEGORY2,YEAR,ZONE,MANAGED_BY,IUCN,NOTES,AREAKM_DEC,AREAKM_ACT,PERIKM_ACT,POINT_X,POINT_Y
+British Indian Ocean Territory,IO,-6.283200000000000,72.083200000000005,Chagos Archipelago,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+British Indian Ocean Territory,IO,-7.257645000000000,72.373109999999997,Diego Garcia,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+British Indian Ocean Territory,IO,-5.461707000000000,71.777168000000003,Peros Banhos,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Comoros,KM,-12.256449999999999,43.659999999999997,Fomboni-Hoani,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Comoros,KM,-12.356150000000000,43.671790000000001,Moheli,Chelonia mydas,"11","13","Parc National de Moheli (Moheli National Park)
+",Comoros,Comoros,National Park,Working,National,National,"2001",Multiple,Ministry in charge of the Environment in the Union of the Comoros,Undetermined,,"449",593.65900000000,123.29800000000,43.72070000000,-12.37910000000
+French Southern Territories,TF,-22.357930000000000,40.362802000000002,Europa,Chelonia mydas,"76","426",Glorieuses Archipelago Natural National Reserve,France,Iles Esparses,Marine nature park,Working,National,National,"2012",Not described,Not described,Undetermined,"Updated name, polygon, area","43800",7867.54000000000,3898.76000000000,68.62750000000,-48.97710000000
+French Southern Territories,TF,-11.550000000000001,47.283332999999999,Glorieuses,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+French Southern Territories,TF,-12.830000000000000,45.109999999999999,Isles Eparces,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+French Southern Territories,TF,-17.053695999999999,42.737141000000001,Juan de Nova,Chelonia mydas,"76","426",Glorieuses Archipelago Natural National Reserve,France,Iles Esparses,Marine nature park,Working,National,National,"2012",Not described,Not described,Undetermined,"Updated name, polygon, area","43800",7867.54000000000,3898.76000000000,68.62750000000,-48.97710000000
+French Southern Territories,TF,-17.053695999999999,42.737141000000001,Juan de Nova,Eretmochelys imbricata,"76","426",Glorieuses Archipelago Natural National Reserve,France,Iles Esparses,Marine nature park,Working,National,National,"2012",Not described,Not described,Undetermined,"Updated name, polygon, area","43800",7867.54000000000,3898.76000000000,68.62750000000,-48.97710000000
+French Southern Territories,TF,-17.053761000000002,42.746806999999997,Juan de Nova and other scattered islands,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+French Southern Territories,TF,-15.550000000000001,54.516700000000000,Tromelin,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+French Southern Territories,TF,-15.888500000000001,54.521700000000003,Tromelin Island,Chelonia mydas,"76","426",Glorieuses Archipelago Natural National Reserve,France,Iles Esparses,Marine nature park,Working,National,National,"2012",Not described,Not described,Undetermined,"Updated name, polygon, area","43800",7867.54000000000,3898.76000000000,68.62750000000,-48.97710000000
+Kenya,KE,-1.989380000000000,41.294150000000002,Chandani,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-2.032000000000000,42.241000000000000,Kitanga kikuu,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Kenya,KE,-1.809270000000000,41.437463999999999,Kiunga,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.809270000000000,41.437463999999999,Kiunga,Lepidochelys olivacea,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-2.020510000000000,41.261760000000002,Kiwaiyu,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.960170000000000,41.315829999999998,Kongowale,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.960170000000000,41.315829999999998,Kongowale,Eretmochelys imbricata,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.957670000000000,41.310499999999998,KSV,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Kenya,KE,-1.993250000000000,41.282950000000000,Kui,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.867330000000000,41.410170000000001,Magogo,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-3.885044000000000,39.801063999999997,Mombasa,Lepidochelys olivacea,,,,,,,,,,,,,,,,,,,
+Kenya,KE,-1.965670000000000,41.312829999999998,Mongoni,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.849330000000000,41.428500000000000,Mtumumwe,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.852000000000000,41.425170000000001,Mwanabule,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.854830000000000,41.423330000000000,Mwongo shariff,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-1.935330000000000,41.339829999999999,Porcupine,Chelonia mydas,"4","6",Kiunga Marine National Reserve,Kenya,Kenya,Marine National Reserve,Working,National,National,"1979",Not described,Kenya Wildlife Service (KWS),VI,"Overlaps Fambuzi, Shaka la Manyoni, Shingi Iyuu","250",239.72800000000,168.84900000000,41.34210000000,-1.90090000000
+Kenya,KE,-3.314427000000000,40.064703999999999,Watamu,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Kenya,KE,-3.314427000000000,40.064703999999999,Watamu,Lepidochelys olivacea,,,,,,,,,,,,,,,,,,,
+Madagascar,MG,-18.555000000000000,43.908000000000001,Barrens Archipelago,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Madagascar,MG,-23.800000000000001,43.649999999999999,Beaches around Besambay and Maromena,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Madagascar,MG,-25.033300000000001,47.000000000000000,Beaches between Fort-Dauphin and Manantenina,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Madagascar,MG,-13.599188000000000,47.825091999999998,Nosy Iranja Kely,Chelonia mydas,"25","27",Ankivonjy,Madagascar,Madagascar,Marine Protected Area,Working,National,National,"2015",Not described,Community and Wildlife Conservation Society,V,,"1394",1379.54000000000,322.17700000000,47.86240000000,-13.52040000000
+Madagascar,MG,-13.599188000000000,47.825091999999998,Nosy Iranja Kely,Eretmochelys imbricata,"25","27",Ankivonjy,Madagascar,Madagascar,Marine Protected Area,Working,National,National,"2015",Not described,Community and Wildlife Conservation Society,V,,"1394",1379.54000000000,322.17700000000,47.86240000000,-13.52040000000
+Madagascar,MG,-23.586971999999999,43.739610999999996,Tulear,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Mayotte,YT,-12.984076999999999,45.184291000000002,Comoros Archipelago,Chelonia mydas,"79","424",Mayotte,France,Mayotte,Maritime public domain (Conservatoire du littoral),Working,National,National,"2010",Not described,Not described,Undetermined,Updated name and polygon,"0",2052.24000000000,484.24800000000,45.14530000000,-12.80270000000
+Mayotte,YT,-12.550000000000001,45.516700000000000,Grande Saziley,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Mayotte,YT,-12.550000000000001,45.549999999999997,"Maoussi, Majicavo 1, 2, 3 and 4",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Mayotte,YT,-12.838540000000000,45.111924999999999,Mayotte Island,Eretmochelys imbricata,"79","424",Mayotte,France,Mayotte,Maritime public domain (Conservatoire du littoral),Working,National,National,"2010",Not described,Not described,Undetermined,Updated name and polygon,"0",2052.24000000000,484.24800000000,45.14530000000,-12.80270000000
+Mozambique,MZ,-21.833333000000000,35.433332999999998,Bazaruto National Park,Caretta caretta,"27","42",Bazaruto Archipelago,Mozambique,Mozambique,National Park,Working,National,National,"1971",Multiple,MITADER and ANAC,V,,"1430",1359.34000000000,170.33400000000,35.43930000000,-21.73190000000
+Mozambique,MZ,-21.833333000000000,35.433332999999998,Bazaruto National Park,Chelonia mydas,"27","42",Bazaruto Archipelago,Mozambique,Mozambique,National Park,Working,National,National,"1971",Multiple,MITADER and ANAC,V,,"1430",1359.34000000000,170.33400000000,35.43930000000,-21.73190000000
+Mozambique,MZ,-21.833333000000000,35.433332999999998,Bazaruto National Park,Dermochelys coriacea,"27","42",Bazaruto Archipelago,Mozambique,Mozambique,National Park,Working,National,National,"1971",Multiple,MITADER and ANAC,V,,"1430",1359.34000000000,170.33400000000,35.43930000000,-21.73190000000
+Mozambique,MZ,-21.833333000000000,35.433332999999998,Bazaruto National Park,Lepidochelys olivacea,"27","42",Bazaruto Archipelago,Mozambique,Mozambique,National Park,Working,National,National,"1971",Multiple,MITADER and ANAC,V,,"1430",1359.34000000000,170.33400000000,35.43930000000,-21.73190000000
+Mozambique,MZ,-25.166271999999999,33.191710999999998,Bilene,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-25.166271999999999,33.191710999999998,Bilene,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-26.259440000000001,32.940280000000001,Dubela-Mucombo,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-26.030000000000001,32.909999999999997,Inhaca Island,Caretta caretta,"29","44",Ponta do Ouro,Mozambique,Mozambique,Partial Marine Reserve (PMR),Working,National,National,"2009",Multiple,MITADER and ANAC,V,Part of the Ponta do Ouro-Kosi Bay TFCA?,"678",703.64400000000,378.29800000000,32.93590000000,-26.32600000000
+Mozambique,MZ,-26.030000000000001,32.909999999999997,Inhaca Island,Dermochelys coriacea,"29","44",Ponta do Ouro,Mozambique,Mozambique,Partial Marine Reserve (PMR),Working,National,National,"2009",Multiple,MITADER and ANAC,V,Part of the Ponta do Ouro-Kosi Bay TFCA?,"678",703.64400000000,378.29800000000,32.93590000000,-26.32600000000
+Mozambique,MZ,-26.767733000000000,32.885522000000002,Malongane,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-26.767733000000000,32.885522000000002,Malongane,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-25.393143999999999,32.798222000000003,Manhica,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-25.393143999999999,32.798222000000003,Manhica,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-26.170000000000002,32.560000000000002,Milibangalala,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-26.170000000000002,32.560000000000002,Milibangalala,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-25.855000000000000,32.734000000000002,Mucombo-Santa Maria,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-25.855000000000000,32.734000000000002,Mucombo-Santa Maria,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-12.409300000000000,40.601900000000001,Paquissico Tchawane Beach and Lemani Beach,Eretmochelys imbricata,"50","89",Quirimbas,Mozambique,Mozambique,National Park,Working,National,National,"2002",Multiple,MITADER and ANAC,V,,"1185",8890.89000000000,562.23300000000,40.04430000000,-12.52300000000
+Mozambique,MZ,-26.782900000000001,32.885655999999997,Ponta de Ouro,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-26.782900000000001,32.885655999999997,Ponta de Ouro,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-15.079910000000000,40.772854000000002,Primeiras and Segundas Islands,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-12.422704000000000,40.611289999999997,Quirimbas National Park,Chelonia mydas,"50","89",Quirimbas,Mozambique,Mozambique,National Park,Working,National,National,"2002",Multiple,MITADER and ANAC,V,,"1185",8890.89000000000,562.23300000000,40.04430000000,-12.52300000000
+Mozambique,MZ,-12.422704000000000,40.611289999999997,Quirimbas National Park,Eretmochelys imbricata,"50","89",Quirimbas,Mozambique,Mozambique,National Park,Working,National,National,"2002",Multiple,MITADER and ANAC,V,,"1185",8890.89000000000,562.23300000000,40.04430000000,-12.52300000000
+Mozambique,MZ,-11.000000000000000,40.689999999999998,Rongui Island and Vamizi Island,Chelonia mydas,"72","0",Vamizi Island,Mozambique,Mozambique,Marine Reserve,Working,Local,LMMA,"2006",Not described,Fishing community council with support from WWF,Undetermined,Added,"18",70.78470000000,32.78740000000,40.70770000000,-11.00140000000
+Mozambique,MZ,-11.000000000000000,40.689999999999998,Rongui Island and Vamizi Island,Eretmochelys imbricata,"72","0",Vamizi Island,Mozambique,Mozambique,Marine Reserve,Working,Local,LMMA,"2006",Not described,Fishing community council with support from WWF,Undetermined,Added,"18",70.78470000000,32.78740000000,40.70770000000,-11.00140000000
+Mozambique,MZ,-23.791467000000001,35.510767000000001,Tofo,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-25.138000000000002,33.684199999999997,Xai-Xai,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-24.768000000000001,34.762000000000000,Zavala,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Mozambique,MZ,-24.515999999999998,35.201999999999998,Zavora,Caretta caretta,,,,,,,,,,,,,,,,,,,
+Réunion,RE,-21.132999999999999,55.549999999999997,All island,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Réunion,RE,-21.109725999999998,55.758960000000002,Réunion Island,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-9.395590000000000,46.512701999999997,Aldabra Islands,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-9.395590000000000,46.512701999999997,Aldabra Islands,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-5.419000000000000,53.335999999999999,Amirantes,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.685680000000000,55.456299999999999,"Anse Barbarons, West Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.685680000000000,55.456299999999999,"Anse Barbarons, West Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.800230000000000,55.512911000000003,Anse Bazarca,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.800230000000000,55.512911000000003,"Anse Bazarca, Anse Cachée, Anse Corail, Anse Grand Police, Anse Intendance, Anse Petite Boileau, Anse Petite Police; South Mahe",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.800230000000000,55.512911000000003,"Anse Bazarca, Anse Cachée, Anse Corail, Anse Grand Police, Anse Intendance, Anse Petite Boileau, Anse Petite Police; South Mahe",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.795118000000000,55.505502000000000,"Anse Bazarca, Anse Cachée, Anse Corail, Anse Intendance, Anse Petite Police; South Mahe",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.795118000000000,55.505502000000000,"Anse Bazarca, Anse Cachée, Anse Corail, Anse Intendance, Anse Petite Police; South Mahe",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.795118000000000,55.505502000000000,"Anse Bazarca, Anse Cachée, Anse Corail, Anse Intendance; South Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.795118000000000,55.505502000000000,"Anse Bazarca, Anse Cachée, Anse Corail, Anse Intendance; South Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.666083000000000,55.521966999999997,"Anse Bonne Care, Pezula Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.666083000000000,55.521966999999997,"Anse Bonne Care, Pezula Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.759796000000000,55.519182999999998,Anse Bougainville,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.795118000000000,55.505502000000000,Anse Cachée,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.795118000000000,55.505502000000000,Anse Cachée,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.795254000000000,55.535871999999998,Anse Capuchin,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.796831000000000,55.508023999999999,Anse Corail,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.774766000000000,55.524065999999998,"Anse Forbans, South East Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.774766000000000,55.524065999999998,"Anse Forbans, South East Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.294650000000000,55.681100000000001,"Anse Georgette, Lemuria Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.294650000000000,55.681100000000001,"Anse Georgette, Lemuria Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.761269000000000,55.470058999999999,Anse Gouvernment,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.802171000000000,55.522055999999999,Anse Grand Police,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.802171000000000,55.522055999999999,Anse Grand Police,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.783979000000000,55.499462000000001,Anse Intendance,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.783979000000000,55.499462000000001,Anse Intendance,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.490816000000000,55.240628000000001,Anse Lascars,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.718900000000000,55.480117000000000,"Anse Louis, West Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.718900000000000,55.480117000000000,"Anse Louis, West Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.781733000000000,55.523432999999997,"Anse Marie Louise, South East Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.781733000000000,55.523432999999997,"Anse Marie Louise, South East Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.767883000000000,55.522416999999997,"Anse Parnell, South East Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.767883000000000,55.522416999999997,"Anse Parnell, South East Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.499233000000001,55.254385999999997,Anse Patates,Eretmochelys imbricata,"135","519",Silhouette,Seychelles,Seychelles,Marine National Park,Working,National,National,"1987",Not described,Seychelles National Parks Authority (SNPA),II,,"10",21.41430000000,46.14030000000,55.23070000000,-4.48799000000
+Seychelles,SC,-4.801567000000000,55.528632999999999,Anse Petite Boileau,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.801567000000000,55.528632999999999,Anse Petite Boileau,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.788417000000000,55.528883000000000,"Anse Petite Marie Louise, South East Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.788417000000000,55.528883000000000,"Anse Petite Marie Louise, South East Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.802302000000000,55.517074000000001,Anse Petite Police,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.694730000000000,55.458799999999997,"Anse Riviere Gaspart, West Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.694730000000000,55.458799999999997,"Anse Riviere Gaspart, West Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.744011000000000,55.516742000000001,Anse Royale,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.744900000000000,55.465767000000000,"Anse Soleil, West Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.744900000000000,55.465767000000000,"Anse Soleil, West Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.775930000000000,55.494565999999999,"Anse Takamaka, South Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.775930000000000,55.494565999999999,"Anse Takamaka, South Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.214765000000000,55.664118000000002,Aride Island Nature Reserve,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-9.723445999999999,46.512096000000000,Assumption Island,Chelonia mydas,"150","534",Aldabra Marine National Park,Seychelles,Seychelles,Marine National Park,Working,National,National,"2018",Not described,Underway,Undetermined,,"177447",171821.00000000000,2306.82000000000,46.71500000000,-9.31532000000
+Seychelles,SC,-4.468169000000000,55.249118000000003,Baie Cipailles,Eretmochelys imbricata,"135","519",Silhouette,Seychelles,Seychelles,Marine National Park,Working,National,National,"1987",Not described,Seychelles National Parks Authority (SNPA),II,,"10",21.41430000000,46.14030000000,55.23070000000,-4.48799000000
+Seychelles,SC,-4.756317000000000,55.477666999999997,"Baie Lazare, West Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.756317000000000,55.477666999999997,"Baie Lazare, West Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-7.135123000000000,52.764808000000002,Bijoutier Island,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-3.720305000000000,55.210090999999998,Bird Island,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.634000000000000,55.491999999999997,Cerf Island,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-7.121378000000000,56.277684000000001,Coetivy Island,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.346976000000000,55.643810000000002,Cousine Island,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.346976000000000,55.643810000000002,Cousine Island,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.330000000000000,55.659999999999997,Cousin Island Special Reserve,Chelonia mydas,"139","523",Cousin Special Reserve,Seychelles,Seychelles,Special Reserve,Working,National,National,"1981",Not described,Nature Seychelles,Ib,,"2",1.58218000000,7.81510000000,55.66150000000,-4.33127000000
+Seychelles,SC,-4.330000000000000,55.659999999999997,Cousin Island Special Reserve,Eretmochelys imbricata,"139","523",Cousin Special Reserve,Seychelles,Seychelles,Special Reserve,Working,National,National,"1981",Not described,Nature Seychelles,Ib,,"2",1.58218000000,7.81510000000,55.66150000000,-4.33127000000
+Seychelles,SC,-5.426270000000000,53.315486999999997,D?Arros Island and St. Joseph Atoll,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.284099000000001,55.728234000000000,Eight beaches at Curieuse Island Marine Park,Eretmochelys imbricata,"138","522",Curieuse,Seychelles,Seychelles,Marine National Park,Working,National,National,"1979",Not described,Seychelles National Parks Authority (SNPA),II,,"14",11.66380000000,31.33350000000,55.73050000000,-4.29175000000
+Seychelles,SC,-4.728443000000000,55.525351000000001,Fairy Land,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-10.136227999999999,51.186270000000000,Farquhar Group,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.608404000000000,55.496316000000000,Five beaches in the Sainte Anne Marine Park,Eretmochelys imbricata,"137","521",Ste. Anne,Seychelles,Seychelles,Marine National Park,Working,National,National,"1973",Not described,Seychelles National Parks Authority (SNPA),II,,"10",9.65521000000,31.47480000000,55.50120000000,-4.62088000000
+Seychelles,SC,-4.579147000000000,55.941704999999999,Frigate Island,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.579147000000000,55.941704999999999,Frigate Island,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.302430000000000,55.680450000000000,"Grand Anse Kerlan, Lemuria Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.302430000000000,55.680450000000000,"Grand Anse Kerlan, Lemuria Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.497012000000000,55.225740999999999,Grande Barbe,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-3.723000000000000,55.210000000000001,Granitics (point placed on Bird Island),Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-5.849000000000000,55.392000000000003,Ile Plate,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.664950000000000,55.522100000000002,"Jetty Beach, Pezula Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.664950000000000,55.522100000000002,"Jetty Beach, Pezula Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.494420000000000,55.250799999999998,La Passe,Eretmochelys imbricata,"135","519",Silhouette,Seychelles,Seychelles,Marine National Park,Working,National,National,"1987",Not described,Seychelles National Parks Authority (SNPA),II,,"10",21.41430000000,46.14030000000,55.23070000000,-4.48799000000
+Seychelles,SC,-4.585000000000000,55.466000000000001,Northeast Point,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.391389000000000,55.248108000000002,North Island,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.299866000000000,55.678300000000000,"Petite Anse Kerlan, Lemuria Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.299866000000000,55.678300000000000,"Petite Anse Kerlan, Lemuria Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.746050000000000,55.463966999999997,"Petite Anse Soleil, West Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.746050000000000,55.463966999999997,"Petite Anse Soleil, West Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.754583000000000,55.464717000000000,"Petite Anse, West Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.754583000000000,55.464717000000000,"Petite Anse, West Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.486362000000000,55.213988999999998,Pointe Etienne,Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-5.776770000000000,53.306460999999999,Poivre Islands,Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.304916000000001,55.681330000000003,"Presidents Beach, Lemuria Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.304916000000001,55.681330000000003,"Presidents Beach, Lemuria Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.663500000000000,55.522666999999998,"Presidents Beach, Pezula Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.663500000000000,55.522666999999998,"Presidents Beach, Pezula Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-5.688583000000000,53.672499999999999,South-western end (Madame Zabre to Bombay),Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-5.688583000000000,53.672499999999999,South-western end (Madame Zabre to Bombay),Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.664800000000000,55.524349999999998,"Turtle Beach, Pezula Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.664800000000000,55.524349999999998,"Turtle Beach, Pezula Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.787267000000000,55.528300000000002,"Unnamed beach, South East Mahé",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.787267000000000,55.528300000000002,"Unnamed beach, South East Mahé",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.666100000000000,55.523150000000001,"Villa Beach, Pezula Resort",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+Seychelles,SC,-4.666100000000000,55.523150000000001,"Villa Beach, Pezula Resort",Eretmochelys imbricata,,,,,,,,,,,,,,,,,,,
+South Africa,ZA,-27.164999999999999,32.805000000000000,Mabibi to Kosi Lake,Caretta caretta,,,,,,,,,,,,,,,,,,,
+South Africa,ZA,-27.164999999999999,32.805000000000000,Mabibi to Kosi Lake,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+South Africa,ZA,-27.190180000000002,32.804220000000001,Maputaland,Dermochelys coriacea,,,,,,,,,,,,,,,,,,,
+"Tanzania, United Republic of",TZ,-7.747269000000000,39.830492000000000,Mafia Island,Chelonia mydas,"38","74",Jojibaki,Tanzania,Tanzania,Fisheries Management Area,Working,Local,CFMA,"2005",Not described,Marine Parks and Reserves Unit (MPRU),Undetermined,"Overlaps w/ FID 34 & 35, part of BMU?","0",277.07200000000,93.80420000000,39.73030000000,-7.67162000000
+"Tanzania, United Republic of",TZ,-7.747269000000000,39.830492000000000,Mafia Island,Eretmochelys imbricata,"38","74",Jojibaki,Tanzania,Tanzania,Fisheries Management Area,Working,Local,CFMA,"2005",Not described,Marine Parks and Reserves Unit (MPRU),Undetermined,"Overlaps w/ FID 34 & 35, part of BMU?","0",277.07200000000,93.80420000000,39.73030000000,-7.67162000000
+"Tanzania, United Republic of",TZ,-5.375356000000000,39.612811000000001,"Misali Island, Pembe",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+"Tanzania, United Republic of",TZ,-5.820743000000000,39.384196000000003,"Mnemba Island, Unguja",Chelonia mydas,,,,,,,,,,,,,,,,,,,
+"Tanzania, United Republic of",TZ,-10.246109000000001,40.339359999999999,Mtwara,Chelonia mydas,"36","75",Mnazi Bay-Ruvuma Estuary,Tanzania,Tanzania,Marine Park,Working,National,National,"2000",Multiple-use Zone,Marine Parks and Reserves Unit (MPRU),IV,,"650",550.45200000000,123.85500000000,40.34910000000,-10.36120000000
