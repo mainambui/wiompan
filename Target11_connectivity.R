@@ -217,7 +217,7 @@ dim(EEZ_CON) #dataset with all reefs and respective connectivity value
 FIG_DATA<- left_join(EEZ_CON,MPA_Con_B[,c("ID","CATEGORY2","CATEGORY")],by=c("ID_2"="ID"), all=T)
 
 percentile <- ecdf(FIG_DATA$NetflowC5)
-FIG_DATA$NetflowC5_percentile<-percentile(FIG_DATA$NetflowC5)
+FIG_DATA$NetflowC5_percentile<-percentile(FIG_DATA$NetflowT15)
 percentile <- ecdf(FIG_DATA$InDegP5)
 FIG_DATA$InDegP5_percentile<-percentile(FIG_DATA$InDegP5)
 
