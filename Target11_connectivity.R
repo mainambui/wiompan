@@ -5,7 +5,7 @@ library(igraph)
 library(here)
 library(ggpubr)
 library(reshape)
-#note - change buffer to 8km
+library(stats)
 
 #1.1 Identifying the percentage of top larval sources and sinks protected across Countries 
 
@@ -18,7 +18,7 @@ dim(EEZ_CON) #750
 Summary_CON <- as.data.frame(EEZ_CON %>% 
   group_by(Sovereign) %>%
   summarise(n = n()))
-#sum(Summary_CON$n) #751 reef cells
+#sum(Summary_CON$n) #750 reef cells
 
 #MPAs Connectivity reef cells within MPAs (buffered radius 4km) (dataset build in QGIS - overlaying connectivity.shp using buffer 4km and MPa.shp)
 MPA_Con_B<- read.csv(here("_data_Target11","MPA_Connectivity_Overlay.csv")) #8km buffer
@@ -210,5 +210,32 @@ length(unique(WIO_EEZ_MPAsinks[WIO_EEZ_MPAsinks$Source_protection == "protected"
 Summary_CON$PA_sources_sinkMPAs <- PAsource_ofsinkMPA
 #### Final table
 Summary_CON
+##END
+
+##Figure - Larval connectivity 
+dim(EEZ_CON) #dataset with all reefs and respective connectivity value
+FIG_DATA<- left_join(EEZ_CON,MPA_Con_B[,c("ID","CATEGORY2","CATEGORY")],by=c("ID_2"="ID"), all=T)
+
+percentile <- ecdf(FIG_DATA$NetflowC5)
+FIG_DATA$NetflowC5_percentile<-percentile(FIG_DATA$NetflowC5)
+percentile <- ecdf(FIG_DATA$InDegP5)
+FIG_DATA$InDegP5_percentile<-percentile(FIG_DATA$InDegP5)
+
+allRe<- ggplot(FIG_DATA, aes(y=NetflowC5_percentile, x=InDegP5_percentile)) +
+  geom_point(alpha=0) + 
+  geom_point(data=FIG_DATA, 
+             aes(y=NetflowC5_percentile, x=InDegP5_percentile, color=CATEGORY),alpha=0.5,size=2) +theme_bw() +
+  geom_hline(yintercept=0.25,linetype=2) +
+  geom_hline(yintercept=0.75,linetype=2) +
+  geom_vline(xintercept=0.25,linetype=2) +
+  geom_vline(xintercept=0.25,linetype=2)
+
+
+library(ggpubr)
+#Create object for graphical edition in inkscape for A - conpectual and B - results 
+relatinnetfin <- ggarrange(allRe,allRe, nrow=1,common.legend = T,legend="bottom",labels = c("A","B"))
+
+
+
 
 
