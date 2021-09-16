@@ -108,10 +108,3 @@ prem_IBA_summary<-final_summaryIBA_by_Country[!final_summaryIBA_by_Country$Sover
 sum(prem_IBA_summary$area_KM2_KBA_Protected)/sum(prem_IBA_summary$area_KM2_KBA)*100
 
 
-
-
-
-
-
-
-
