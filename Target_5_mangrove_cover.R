@@ -70,3 +70,6 @@ ggplot(plotchanges, aes(COUNTRY, changes, fill = deltaCAT)) + geom_bar(stat="ide
   theme_classic() + scale_fill_viridis(discrete=TRUE)
 
 
+
+
+
