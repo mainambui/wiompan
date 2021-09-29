@@ -5,7 +5,7 @@ library(igraph)
 library(here)
 library(ggpubr)
 library(reshape)
-#note - change buffer to 8km
+library(stats)
 
 #1.1 Identifying the percentage of top larval sources and sinks protected across Countries 
 
@@ -18,7 +18,7 @@ dim(EEZ_CON) #750
 Summary_CON <- as.data.frame(EEZ_CON %>% 
   group_by(Sovereign) %>%
   summarise(n = n()))
-#sum(Summary_CON$n) #751 reef cells
+#sum(Summary_CON$n) #750 reef cells
 
 #MPAs Connectivity reef cells within MPAs (buffered radius 4km) (dataset build in QGIS - overlaying connectivity.shp using buffer 4km and MPa.shp)
 MPA_Con_B<- read.csv(here("_data_Target11","MPA_Connectivity_Overlay.csv")) #8km buffer
@@ -37,100 +37,100 @@ EEZ_CON_SoSi<-  EEZ_CON %>% filter(!is.na(NetflowC5))
 droplevels(EEZ_CON_SoSi)
 dim(EEZ_CON_SoSi) #706 reef cells
 
-SinksPA <- c( length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+SinksPA <- c( length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.1),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.25),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100,
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100,
 
-length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.1,na.rm = T) &
-                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.1,na.rm = T),]$ID_2)*100 )
+length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.25,na.rm = T) &
+                      EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 < quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.25,na.rm = T),]$ID_2)*100 )
 
 
-SourcesPA <- c( length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+SourcesPA <- c( length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Comoro Islands",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.9),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "France",]$NetflowC5,0.75),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Kenya",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Madagascar",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mauritius",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Mozambique",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Seychelles",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Somalia",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100,
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "South Africa",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100,
               
-              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.9,na.rm = T) &
-                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.9,na.rm = T),]$ID_2)*100 )
+              length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.75,na.rm = T) &
+                                    EEZ_CON_SoSi$protection == "protected",]$ID_2)/ length(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania" & EEZ_CON_SoSi$NetflowC5 > quantile(EEZ_CON_SoSi[EEZ_CON_SoSi$Sovereign == "Tanzania",]$NetflowC5,0.75,na.rm = T),]$ID_2)*100 )
 
 summary(EEZ_CON)
 EEZ_CON_Cor<-  EEZ_CON %>% filter(OutflowP5 > 0 & InflowP5  > 0)
 dim(EEZ_CON_Cor) #701 corridors
 
-CorridorsPA <- c( length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+CorridorsPA <- c( length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Comoro Islands",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France",]$InflowP5,0.9),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "France",]$InflowP5,0.75),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Kenya",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Madagascar",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mauritius",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Mozambique",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Seychelles",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Somalia",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa",]$InflowP5,0.9,na.rm = T),]$ID_2)*100,
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "South Africa",]$InflowP5,0.75,na.rm = T),]$ID_2)*100,
                 
-                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania",]$InflowP5,0.9,na.rm = T) &
-                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania",]$InflowP5,0.9,na.rm = T),]$ID_2)*100 )
+                length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania",]$InflowP5,0.75,na.rm = T) &
+                                      EEZ_CON_Cor$protection == "protected",]$ID_2)/ length(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania" & EEZ_CON_Cor$InflowP5 > quantile(EEZ_CON_Cor[EEZ_CON_Cor$Sovereign == "Tanzania",]$InflowP5,0.75,na.rm = T),]$ID_2)*100 )
 
 
 Summary_CON$SinkPA <- SinksPA
@@ -210,5 +210,32 @@ length(unique(WIO_EEZ_MPAsinks[WIO_EEZ_MPAsinks$Source_protection == "protected"
 Summary_CON$PA_sources_sinkMPAs <- PAsource_ofsinkMPA
 #### Final table
 Summary_CON
+##END
+
+##Figure - Larval connectivity 
+dim(EEZ_CON) #dataset with all reefs and respective connectivity value
+FIG_DATA<- left_join(EEZ_CON,MPA_Con_B[,c("ID","CATEGORY2","CATEGORY")],by=c("ID_2"="ID"), all=T)
+
+percentile <- ecdf(FIG_DATA$NetflowC5)
+FIG_DATA$NetflowC5_percentile<-percentile(FIG_DATA$NetflowT15)
+percentile <- ecdf(FIG_DATA$InDegP5)
+FIG_DATA$InDegP5_percentile<-percentile(FIG_DATA$InDegP5)
+
+allRe<- ggplot(FIG_DATA, aes(y=NetflowC5_percentile, x=InDegP5_percentile)) +
+  geom_point(alpha=0) + 
+  geom_point(data=FIG_DATA, 
+             aes(y=NetflowC5_percentile, x=InDegP5_percentile, color=CATEGORY),alpha=0.5,size=2) +theme_bw() +
+  geom_hline(yintercept=0.25,linetype=2) +
+  geom_hline(yintercept=0.75,linetype=2) +
+  geom_vline(xintercept=0.25,linetype=2) +
+  geom_vline(xintercept=0.25,linetype=2)
+
+
+library(ggpubr)
+#Create object for graphical edition in inkscape for A - conpectual and B - results 
+relatinnetfin <- ggarrange(allRe,allRe, nrow=1,common.legend = T,legend="bottom",labels = c("A","B"))
+
+
+
 
 
