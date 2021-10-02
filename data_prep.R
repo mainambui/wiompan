@@ -164,12 +164,10 @@ puvspr.seasfloor.id<-puvspr[,c('species.id','pu','amount','species')]
 write.csv(puvspr.seasfloor.id,'~/Documents/tbca/wiompan_mpa/puvspr.seafloor.csv')
 
 
-###Allen Atlas##
+###ALLEN ATLAS##
 #read in plannimng units
 tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/tbca.planning/','TBCA_500m_units')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
-
-
 ##extract coral seagass and reef geomorphology totbca
 #split allen atlas geomorphic into different shapefiles
 geomorphic.allen<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic_Allen/','geomorphic')
@@ -209,11 +207,37 @@ tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 #plot(tbca.pu)
 files<-list.files(path='~/Documents/tbca/Cleaned/WIO_SeagrassAndCoral_Allen', pattern='shp$')
-coral<-readOGR(dsn="/Users/maina/Documents/tbca/Cleaned/WIO_SeagrassAndCoral_Allen",tools::file_path_sans_ext(files[1]))
-coral1<-raster::crop(coral, extent(tbca.pu))
-coral2 <- raster::intersect(coral1, tbca.pu)
-coral2$area <- area(coral2) / 1000000
-outpout[[i]]<-aggregate(area~PU+ class, data=pi[[i]]@data, FUN=sum)
+dat<-readOGR(dsn="/Users/maina/Documents/tbca/Cleaned/WIO_SeagrassAndCoral_Allen",tools::file_path_sans_ext(files[2]))#change to 1 or 2 for coral and seagrass rspectively
+dat1<-raster::crop(dat, extent(tbca.pu))
+
+#convert to sf due to large memory##https://stackoverflow.com/questions/45128670/combining-spatialpointsdataframe-with-spatialpolygonsdataframe-error-maximum-re
+dat.sf<-st_as_sf(dat1)
+tbca.sf<-st_as_sf(tbca.pu)
+
+#check th lengths of levels omn category2 field in coral data. N per levcel seems sufficient. now use to breakup the data
+dat1@data %>% 
+  group_by(CATEGORY2) %>%
+  summarise(no_rows = length(CATEGORY2))
+
+##run intersection of the cropped extent
+dat2 <- dat.sf%>%
+  group_by(CATEGORY2) %>%
+  do(sf::st_intersection(., tbca.sf))
+##convert output from above to sf and calculate the area
+dat3<-st_as_sf(dat2)
+dat3$area <- sf::st_area(dat3)/1000000
+puvspr<-aggregate(area~PU+ class, data=dat3, FUN=sum)
+
+colnames(puvspr)<-c('pu','species','amount')
+dat.ga = rle(puvspr$species)
+puvspr$species.id <- rep(seq_along(dat.ga$lengths), dat.ga$lengths)
+puvspr<-puvspr[order(puvspr$pu),]
+puvspr.id<-puvspr[,c('species.id','pu','amount','species')]
+write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seagrass.allen.csv')
+rm(list=ls())
+
+
+
 
 
 
