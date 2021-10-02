@@ -237,24 +237,6 @@ write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seagrass.
 rm(list=ls())
 
 
-
-
-
-
-    #write.csv(outpout[[i]],paste('/Users/josephmaina/OneDrive - Macquarie University/Projects/,files[i],'.csv'))		
-} 
-
-puvspr<-do.call(rbind,outpout)
-colnames(puvspr)<-c('pu','species','amount')
-r.coral.sgrass = rle(puvspr$species)
-puvspr$species.id <- rep(seq_along(r.coral.sgrass$lengths), r.coral.sgrass$lengths)
-puvspr<-puvspr[order(puvspr$pu),]
-puvspr.coral.sgrass.id<-puvspr[,c('species.id','pu','amount','species')]
-#colnames(puvspr.seasfloor.id)[1]<-'species'
-write.csv(puvspr.coral.sgrass.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.coral.sgrass.csv')
-
-
-
 ##################
 #Priortize R: tbca
 ##################
