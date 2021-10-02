@@ -126,14 +126,14 @@ hex_cover$pct_cover <- 100 * hex_cover$cover_area /hex_cover$area
 ##tbca dataprep
 #Sept 14
 ##readin the shapefile
-setwd("~/Documents/tbca/Cleaned/WIO_Geomorphic/")
+setwd("~/Documents/tbca/wiompan_mpa/")
+
+#read in plannimng units
 tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/','TBCA_500m_units')
-files<-list.files( pattern='shp$')
-
-#plot(tbca.pu)
-
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
+#plot(tbca.pu)
+files<-list.files(path='~/Documents/tbca/Cleaned/WIO_Geomorphic/', pattern='shp$')
 #delete shelf classification
 #files<-files[-14]
 #files<-files[-3]
@@ -145,7 +145,7 @@ sh<-list()
 outpout<- list()
 for (i in seq_along(files)){
   tryCatch({
-  sh[[i]]<-readOGR(dsn='.',tools::file_path_sans_ext(files[i]))
+  sh[[i]]<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/',tools::file_path_sans_ext(files[i]))
   hc[[i]]<-raster::crop(sh[[i]], extent(tbca.pu))
   pi[[i]] <- raster::intersect( hc[[i]], tbca.pu)
   pi[[i]]$area <- area(pi[[i]]) / 1000000
@@ -155,20 +155,104 @@ for (i in seq_along(files)){
 } 
 
 puvspr<-do.call(rbind,outpout)
-
 colnames(puvspr)<-c('pu','species','amount')
 r.seafloor = rle(puvspr$species)
 puvspr$species.id <- rep(seq_along(r.seafloor$lengths), r.seafloor$lengths)
 puvspr<-puvspr[order(puvspr$pu),]
-
 puvspr.seasfloor.id<-puvspr[,c('species.id','pu','amount','species')]
 #colnames(puvspr.seasfloor.id)[1]<-'species'
-
 write.csv(puvspr.seasfloor.id,'~/Documents/tbca/wiompan_mpa/puvspr.seafloor.csv')
 
-##############
-#Priortize R
-################
+
+###Allen Atlas##
+#read in plannimng units
+tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/tbca.planning/','TBCA_500m_units')
+tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
+
+
+##extract coral seagass and reef geomorphology totbca
+#split allen atlas geomorphic into different shapefiles
+geomorphic.allen<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic_Allen/','geomorphic')
+names(geomorphic.allen)
+unique.ga <- unique(geomorphic.allen@data$class)
+#unique.ga
+#[1] "Inner Reef Flat"       "Sheltered Reef Slope"  "Outer Reef Flat"       "Back Reef Slope"       "Reef Slope"            "Shallow Lagoon"       
+#[7] "Plateau"               "Deep Lagoon"           "Terrestrial Reef Flat" "Reef Crest"          
+hc<-list()
+pi<-list()
+hc<-list()
+sh<-list()
+outpout<- list()
+for (i in 1:length(unique.ga)) {
+  sh[[i]] <- geomorphic.allen[geomorphic.allen$class == unique.ga[i], ] 
+  hc[[i]]<-raster::crop(sh[[i]], extent(tbca.pu))
+  pi[[i]] <- raster::intersect( hc[[i]], tbca.pu)
+  pi[[i]]$area <- area(pi[[i]]) / 1000000
+  outpout[[i]]<-aggregate(area~PU+ class, data=pi[[i]]@data, FUN=sum)
+}
+
+puvspr<-do.call(rbind,outpout)
+colnames(puvspr)<-c('pu','species','amount')
+r.ga = rle(puvspr$species)
+puvspr$species.id <- rep(seq_along(r.ga$lengths), r.ga$lengths)
+puvspr<-puvspr[order(puvspr$pu),]
+puvspr.ga.id<-puvspr[,c('species.id','pu','amount','species')]
+write.csv(puvspr.ga.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.reefgeomo.allen.csv')
+rm(list=ls())
+
+
+#######
+##Coral and Seagrass
+#read in plannimng units
+tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/','TBCA_500m_units')
+tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
+
+#plot(tbca.pu)
+files<-list.files(path='~/Documents/tbca/Cleaned/WIO_SeagrassAndCoral_Allen', pattern='shp$')
+coral<-readOGR(dsn="/Users/maina/Documents/tbca/Cleaned/WIO_SeagrassAndCoral_Allen",tools::file_path_sans_ext(files[1]))
+coral1<-raster::crop(coral, extent(tbca.pu))
+coral2 <- raster::intersect(coral1, tbca.pu)
+coral2$area <- area(coral2) / 1000000
+outpout[[i]]<-aggregate(area~PU+ class, data=pi[[i]]@data, FUN=sum)
+
+
+
+    #write.csv(outpout[[i]],paste('/Users/josephmaina/OneDrive - Macquarie University/Projects/,files[i],'.csv'))		
+} 
+
+puvspr<-do.call(rbind,outpout)
+colnames(puvspr)<-c('pu','species','amount')
+r.coral.sgrass = rle(puvspr$species)
+puvspr$species.id <- rep(seq_along(r.coral.sgrass$lengths), r.coral.sgrass$lengths)
+puvspr<-puvspr[order(puvspr$pu),]
+puvspr.coral.sgrass.id<-puvspr[,c('species.id','pu','amount','species')]
+#colnames(puvspr.seasfloor.id)[1]<-'species'
+write.csv(puvspr.coral.sgrass.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.coral.sgrass.csv')
+
+
+
+##################
+#Priortize R: tbca
+##################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
