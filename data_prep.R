@@ -38,13 +38,32 @@ library(dplyr)
 ##create planning units'
 rm(list=ls())
 #wio extent
-#read eez file
-wio.eez<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_EEZ/','WIO_EEZ')
-wio.shelf<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Shelf')
+#read wio land to eez shapefile file
+roi.wio.alb<-readOGR(dsn='~/Documents/tbca/PlanningUnits/WIO_PUfile_base_Sept2021/','wio_country_land to eez')
+
+wio_landtoshelf <- subset(roi.wio.alb, FID_wio_la == 0)
+wio_slope <- subset(roi.wio.alb, FID_wio_la == 1)
+wio_eez <- subset(roi.wio.alb, FID_wio_la == 2)
+
+#select the column of the attribute table that will determine the split of the shp
+uniques <- unique(wio_landtoshelf$COUNTRY2)
+
+#create country pus based on the determined column
+output<- list()
+for (i in 1:length(uniques)) {
+  cntry <- wio_landtoshelf[wio_landtoshelf$COUNTRY2 == uniques[i], ]
+  output[i]<- make_grid(cntry, type = "hexagonal", cell_area = 1000000, clip = TRUE)
+}
+
+wiopu = do.call(bind, output) 
+## writeOGR(tmp, dsn=getwd(), unique[i], driver="ESRI Shapefile",
+#overwrite_layer=TRUE)
+
+
+
+#wio.shelf<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Shelf')
 #wio.slope<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Slope')
 #WIOinland<-readOGR(dsn='~/Documents/tbca/PlanningUnits/WIO_PUfile_base/','WIO_EEZ_Inland_fin')
-
-
 ##select countries of interest from eez and delete columns
 #eez<-unique(wio.eez@data$Territory1)
 #non.wio<-c("Djibouti","Maldives","Chagos Archipelago")
@@ -64,7 +83,7 @@ roi.wio.alb<- spTransform(wio.eez, afr.alb)
 source("makegrid.R")
 # hex - without clipping
 #hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = FALSE)
-hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = FALSE)
+hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = TRUE)
 hex_grid_eez <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 25000000, clip = TRUE)
 
 #plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
@@ -103,6 +122,18 @@ rm(list=ls())
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ##Burn MPAs onto the planning units
 
 
@@ -129,7 +160,7 @@ hex_cover$pct_cover <- 100 * hex_cover$cover_area /hex_cover$area
 setwd("~/Documents/tbca/wiompan_mpa/")
 
 #read in plannimng units
-tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/','TBCA_500m_units')
+tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 #plot(tbca.pu)
@@ -237,15 +268,27 @@ write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seagrass.
 rm(list=ls())
 
 
+#pending layers
+#gravity of markkets
+#climate change
+#socioeconomic data
+
+
+
+
+
 ##################
 #Priortize R: tbca
 ##################
 
+library(prioritizr)
+# set default options for printing tabular data
+options(tibble.width = Inf)
 
 
-
-
-
+# load polygon planning unit data
+data(sim_pu_polygons)
+head(sim_pu_polygons@data)
 
 
 
