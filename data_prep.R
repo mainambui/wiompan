@@ -39,6 +39,8 @@ library(dplyr)
 rm(list=ls())
 #wio extent
 #read wio land to eez shapefile file
+
+source("makegrid.R")
 roi.wio.alb<-readOGR(dsn='~/Documents/tbca/PlanningUnits/WIO_PUfile_base_Sept2021/','wio_country_land to eez')
 
 wio_landtoshelf <- subset(roi.wio.alb, FID_wio_la == 0)
@@ -56,10 +58,23 @@ for (i in 1:length(uniques)) {
 }
 
 wiopu = do.call(bind, output) 
-## writeOGR(tmp, dsn=getwd(), unique[i], driver="ESRI Shapefile",
-#overwrite_layer=TRUE)
 
+# Extract polygon/p ID's
+#pid.shelf <- sapply(slot(hex_grid_shelf, "polygons"), function(x) slot(x, "ID")) 
+pid.landshelf <- sapply(slot(wiopu, "polygons"), function(x) slot(x, "ID")) 
 
+# Create dataframe with correct rownames
+#p.df.shelf <- data.frame( ID=1:length(hex_grid_shelf), row.names = pid.shelf)    
+p.df.landshelf <- data.frame( ID=1:length(wiopu), row.names = pid.landshelf )  
+
+# Try coersion again and check class
+#pu.shelf <- SpatialPolygonsDataFrame(hex_grid_shelf, p.df.shelf)
+pu.landshelf <- SpatialPolygonsDataFrame(wiopu, p.df.landshelf <)
+class(pu.landshelf) 
+
+##please write Large data to (~/volumes/Data)
+#writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/PlanningUnits', layer="wioShelf_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+writeOGR(obj=pu.landshelf,dsn='~/Documents/tbca/PlanningUnits', layer="land.shelf.pu_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 
 #wio.shelf<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Shelf')
 #wio.slope<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Slope')
@@ -74,17 +89,16 @@ wiopu = do.call(bind, output)
 #roi.wio <- wio.roi[,!(names(wio.roi) %in% filtercols)] 
 
 #Project to Afica_Albers
-afr.alb<-CRS("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs")
+#afr.alb<-CRS("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs")
 
-roi.wio.alb<- spTransform(wio.eez, afr.alb)
+#roi.wio.alb<- spTransform(wio.eez, afr.alb)
 
 
 #create planning units of 1km2
-source("makegrid.R")
 # hex - without clipping
 #hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = FALSE)
-hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = TRUE)
-hex_grid_eez <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 25000000, clip = TRUE)
+#hex_grid_shelf <- make_grid(wio.shelf, type = "hexagonal", cell_area = 1000000, clip = TRUE)
+#hex_grid_eez <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 25000000, clip = TRUE)
 
 #plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
 #plot(hex_grid, border = "orange", add = TRUE)
@@ -94,29 +108,7 @@ hex_grid_eez <- make_grid(roi.wio.alb, type = "hexagonal", cell_area = 25000000,
 #plot(roi.wio.alb, col = "grey50", bg = "light blue", axes = FALSE)
 #plot(hex_grid_c, border = "orange", add = TRUE)
 #box()
-
-# Extract polygon/p ID's
-#pid.shelf <- sapply(slot(hex_grid_shelf, "polygons"), function(x) slot(x, "ID")) 
-pid.small <- sapply(slot(hex_grid_small, "polygons"), function(x) slot(x, "ID")) 
-pid.eez <- sapply(slot(hex_grid_eez, "polygons"), function(x) slot(x, "ID"))
-
-# Create dataframe with correct rownames
-#p.df.shelf <- data.frame( ID=1:length(hex_grid_shelf), row.names = pid.shelf)    
-p.df.small <- data.frame( ID=1:length(hex_grid_small), row.names = pid.small)  
-p.df.eez <- data.frame( ID=1:length(hex_grid_eez), row.names = pid.eez)
-
-# Try coersion again and check class
-#pu.shelf <- SpatialPolygonsDataFrame(hex_grid_shelf, p.df.shelf)
-#class(pu.shelf) 
-pu.small <- SpatialPolygonsDataFrame(hex_grid_small, p.df.small)
-class(pu.small) 
-pu.eez <- SpatialPolygonsDataFrame(hex_grid_eez, p.df.eez)
-class(pu.eez) 
-
-##please write Large data to (~/volumes/Data)
-#writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/PlanningUnits', layer="wioShelf_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
-writeOGR(obj=pu.small,dsn='~/Documents/tbca/PlanningUnits', layer="wioSmall_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
-writeOGR(obj=pu.eez,dsn='~/Documents/tbca/PlanningUnits', layer="wioEEZ_5km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+#writeOGR(obj=pu.eez,dsn='~/Documents/tbca/PlanningUnits', layer="wioEEZ_5km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 
 rm(list=ls())
 
