@@ -65,11 +65,11 @@ pid.landshelf <- sapply(slot(wiopu, "polygons"), function(x) slot(x, "ID"))
 
 # Create dataframe with correct rownames
 #p.df.shelf <- data.frame( ID=1:length(hex_grid_shelf), row.names = pid.shelf)    
-p.df.landshelf <- data.frame( ID=1:length(wiopu), row.names = pid.landshelf )  
+p.df.landshelf <- data.frame( ID=1:length(wiopu), row.names = pid.landshelf )
 
 # Try coersion again and check class
 #pu.shelf <- SpatialPolygonsDataFrame(hex_grid_shelf, p.df.shelf)
-pu.landshelf <- SpatialPolygonsDataFrame(wiopu, p.df.landshelf <)
+pu.landshelf <- SpatialPolygonsDataFrame(wiopu, p.df.landshelf)
 class(pu.landshelf) 
 
 ##please write Large data to (~/volumes/Data)
