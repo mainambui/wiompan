@@ -120,32 +120,7 @@ rm(list=ls())
 
 
 
-
-
-
-
-
-
-##Burn MPAs onto the planning units
-
-
-##extract biodiversity features
-#Polygon coverage
-# cell areas
-hex_grid_c <- gArea(hex_grid_c, byid = T) %>% 
-  data.frame(id = names(.), area = ., stringsAsFactors = FALSE) %>% 
-  SpatialPolygonsDataFrame(hex_grid_c, .)
-hex_cover <- gIntersection(hex_grid_c, MYPOLYGONS, byid = TRUE) %>% 
-  gArea(byid = TRUE) %>% 
-  data.frame(id_both = names(.), cover_area = ., stringsAsFactors = FALSE) %>% 
-  separate(id_both, "id", extra = "drop") %>% 
-  merge(hex_grid_c, ., by = "id")
-hex_cover$cover_area[is.na(hex_cover$cover_area)] <- 0
-hex_cover$pct_cover <- 100 * hex_cover$cover_area /hex_cover$area
-
-
-
-
+####tbca starts here
 ##tbca dataprep
 #Sept 14
 ##readin the shapefile
