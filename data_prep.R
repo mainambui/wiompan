@@ -54,27 +54,42 @@ uniques <- unique(wio_landtoshelf$COUNTRY2)
 output<- list()
 for (i in 1:length(uniques)) {
   cntry <- wio_landtoshelf[wio_landtoshelf$COUNTRY2 == uniques[i], ]
-  output[i]<- make_grid(cntry, type = "hexagonal", cell_area = 1000000, clip = TRUE)
+  output[i]<- make_grid(cntry, type = "hexagonal", cell_area = 5000000, clip = TRUE)
 }
 
-wiopu = do.call(bind, output) 
+wiopu_landtoshelf = do.call(bind, output)
 
 # Extract polygon/p ID's
 #pid.shelf <- sapply(slot(hex_grid_shelf, "polygons"), function(x) slot(x, "ID")) 
-pid.landshelf <- sapply(slot(wiopu, "polygons"), function(x) slot(x, "ID")) 
+pid.eez <- sapply(slot(allwiopu, "polygons"), function(x) slot(x, "ID")) 
 
 # Create dataframe with correct rownames
 #p.df.shelf <- data.frame( ID=1:length(hex_grid_shelf), row.names = pid.shelf)    
-p.df.landshelf <- data.frame( ID=1:length(wiopu), row.names = pid.landshelf )
+p.df.eez <- data.frame( ID=1:length(allwiopu), row.names = pid.shelf ))
 
 # Try coersion again and check class
 #pu.shelf <- SpatialPolygonsDataFrame(hex_grid_shelf, p.df.shelf)
-pu.landshelf <- SpatialPolygonsDataFrame(wiopu, p.df.landshelf)
-class(pu.landshelf) 
+pu.eez <- SpatialPolygonsDataFrame(allwiopu, p.df.eez)
+class(pu.eez) 
 
 ##please write Large data to (~/volumes/Data)
 #writeOGR(obj=pu.shelf,dsn='~/Documents/tbca/PlanningUnits', layer="wioShelf_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
-writeOGR(obj=pu.landshelf,dsn='~/Documents/tbca/PlanningUnits', layer="land.shelf.pu_1km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+writeOGR(obj=map2,dsn='~/Documents/tbca/PlanningUnits', layer="slope.pu_2.5km", driver="ESRI Shapefile",overwrite_layer=TRUE)
+
+
+map1<-readOGR(dsn='~/Documents/tbca/PlanningUnits', "eez.pu_5km")
+map2<-readOGR(dsn='~/Documents/tbca/PlanningUnits', "slope.pu_2.5km")
+map3<-readOGR(dsn='~/Documents/tbca/PlanningUnits', "land.shelf.pu_1km")
+
+allwiopu<-rbind(map1,map2, map3)
+
+allwiopu <- sp::spChFIDs(allwiopu, as.character(1:length(allwiopu)))
+
+pid.allwiopu <- sapply(slot(allwiopu, "polygons"), function(x) slot(x, "ID")) 
+p.df.allwiopu <- data.frame( ID=1:length(allwiopu), row.names = pid.allwiopu )
+allwiopu<- SpatialPolygonsDataFrame(allwiopu, p.df.allwiopu)
+
+writeOGR(obj=allwiopu,dsn='~/Documents/tbca/PlanningUnits', layer="wioMultilevelPu", driver="ESRI Shapefile",overwrite_layer=TRUE)
 
 #wio.shelf<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Shelf')
 #wio.slope<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/','Slope')
@@ -109,7 +124,6 @@ writeOGR(obj=pu.landshelf,dsn='~/Documents/tbca/PlanningUnits', layer="land.shel
 #plot(hex_grid_c, border = "orange", add = TRUE)
 #box()
 #writeOGR(obj=pu.eez,dsn='~/Documents/tbca/PlanningUnits', layer="wioEEZ_5km", driver="ESRI Shapefile",overwrite_layer=TRUE)
-
 rm(list=ls())
 
 
