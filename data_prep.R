@@ -141,11 +141,11 @@ rm(list=ls())
 setwd("~/Documents/tbca/wiompan_mpa/")
 
 #read in plannimng units
-tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
+tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 #plot(tbca.pu)
-files<-list.files(path='~/Documents/tbca/Cleaned/WIO_Geomorphic/', pattern='shp$')
+files<-list.files(path='~/Documents/tbca/Data/Cleaned/WIO_Geomorphic/', pattern='shp$')
 #delete shelf classification
 #files<-files[-14]
 #files<-files[-3]
@@ -157,7 +157,7 @@ sh<-list()
 outpout<- list()
 for (i in seq_along(files)){
   tryCatch({
-  sh[[i]]<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic/',tools::file_path_sans_ext(files[i]))
+  sh[[i]]<-readOGR(dsn='~/Documents/tbca/Data/Cleaned/WIO_Geomorphic/',tools::file_path_sans_ext(files[i]))
   hc[[i]]<-raster::crop(sh[[i]], extent(tbca.pu))
   pi[[i]] <- raster::intersect( hc[[i]], tbca.pu)
   pi[[i]]$area <- area(pi[[i]]) / 1000000
@@ -173,16 +173,17 @@ puvspr$species.id <- rep(seq_along(r.seafloor$lengths), r.seafloor$lengths)
 puvspr<-puvspr[order(puvspr$pu),]
 puvspr.seasfloor.id<-puvspr[,c('species.id','pu','amount','species')]
 #colnames(puvspr.seasfloor.id)[1]<-'species'
-write.csv(puvspr.seasfloor.id,'~/Documents/tbca/wiompan_mpa/puvspr.seafloor.csv')
+write.csv(puvspr.seasfloor.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seafloor.csv')
 
 
 ###ALLEN ATLAS##
 #read in plannimng units
-tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/tbca.planning/','TBCA_500m_units')
+tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
+
 ##extract coral seagass and reef geomorphology totbca
 #split allen atlas geomorphic into different shapefiles
-geomorphic.allen<-readOGR(dsn='~/Documents/tbca/Cleaned/WIO_Geomorphic_Allen/','geomorphic')
+geomorphic.allen<-readOGR(dsn='~/Documents/tbca/Data/Cleaned/WIO_Geomorphic_Allen/','geomorphic')
 names(geomorphic.allen)
 unique.ga <- unique(geomorphic.allen@data$class)
 #unique.ga
@@ -214,12 +215,12 @@ rm(list=ls())
 #######
 ##Coral and Seagrass
 #read in plannimng units
-tbca.pu<-readOGR(dsn='~/Documents/tbca/Cleaned/Planning_units/','TBCA_500m_units')
+tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 #plot(tbca.pu)
-files<-list.files(path='~/Documents/tbca/Cleaned/WIO_SeagrassAndCoral_Allen', pattern='shp$')
-dat<-readOGR(dsn="/Users/maina/Documents/tbca/Cleaned/WIO_SeagrassAndCoral_Allen",tools::file_path_sans_ext(files[2]))#change to 1 or 2 for coral and seagrass rspectively
+files<-list.files(path='~/Documents/tbca/Data/Cleaned/WIO_Coral_Allen', pattern='shp$')
+dat<-readOGR(dsn="/Users/maina/Documents/tbca/Data/Cleaned/WIO_Coral_Allen",tools::file_path_sans_ext(files[1]))#change to 1 or 2 for coral and seagrass rspectively
 dat1<-raster::crop(dat, extent(tbca.pu))
 
 #convert to sf due to large memory##https://stackoverflow.com/questions/45128670/combining-spatialpointsdataframe-with-spatialpolygonsdataframe-error-maximum-re
@@ -245,7 +246,7 @@ dat.ga = rle(puvspr$species)
 puvspr$species.id <- rep(seq_along(dat.ga$lengths), dat.ga$lengths)
 puvspr<-puvspr[order(puvspr$pu),]
 puvspr.id<-puvspr[,c('species.id','pu','amount','species')]
-write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seagrass.allen.csv')
+write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.coral.allen.csv')
 rm(list=ls())
 
 
