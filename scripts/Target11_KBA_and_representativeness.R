@@ -1,0 +1,142 @@
+#KBA areas - Key Biodiversity areas  (IUCN)
+#First, to determine KBA area within EEZ by country
+library(here)
+library(dplyr)
+library(tidyverse)
+# KBA and EEZ layers were merged in QGis - Polygons intercepting were considered within EEZ boundaries
+#note all KBAs identify either within or intercepting EEZ were considered.
+KBA_EEZ <- read.csv(here("_data_Target11","KBA_EEZ.csv"))
+summary(KBA_EEZ)
+#load dataset with the area pf KBAs protected (intersection layer)
+KBA_MPA_int<-read.csv(here("_data_Target11","KBA_Area_protected.csv"))
+summary(KBA_MPA_int)
+#load data KBA area within EEZ by Country
+KBA_EEZ_int <- read.csv(here("_data_Target11","EEZ_KBA_intersection.csv"))
+summary(KBA_EEZ_int)
+#meters to Km2
+KBA_EEZ$area_KM2_KBA <- KBA_EEZ$area_meters_KBA/1000000
+KBA_MPA_int$area_KM2_KBA_Protected <- KBA_MPA_int$area_m2_int/1000000
+KBA_EEZ_int$area_KM2_int <- KBA_EEZ_int$area_int_EEZ_KBA/1000000
+#GENERATE % SUMMARY by Territory
+unique(KBA_EEZ$Sovereign) #10 territories/ 1 dispute
+length(unique(KBA_EEZ$SitRecID)) #300 KBAs within EEZ - use SitRecID
+length(unique(KBA_MPA_int$SitRecID)) #109 KBAs within EEZ
+#KBA area
+areaKBAs<-as.data.frame(aggregate(area_KM2_KBA ~ SitRecID + Country + Sovereign, KBA_EEZ, max))
+areaKBAs_Protected<-as.data.frame(aggregate(area_KM2_KBA_Protected ~ SitRecID + Country, KBA_MPA_int,sum))
+areaKBA_Summary<-left_join(areaKBAs, areaKBAs_Protected, by=c("SitRecID","Country"),all=T)
+areaKBA_Summary[is.na(areaKBA_Summary)] <- 0
+head(areaKBA_Summary)
+head(KBA_EEZ_int[Sovereign,])
+
+int_KBAEEZarea <- as.data.frame(KBA_EEZ_int[,c(19,21)] %>%
+                                  group_by(Sovereign) %>%
+                                  summarise_all(list(sum)))
+#Summary - total KBA area protected by Country
+final_summary_by_Country <- as.data.frame(areaKBA_Summary[,3:5] %>%
+  group_by(Sovereign) %>%
+  summarise_all(list(sum)))
+
+final_summary_by_Country <- left_join(final_summary_by_Country,int_KBAEEZarea,by='Sovereign')
+final_summary_by_Country$area_KM2_int <- round(final_summary_by_Country$area_KM2_int, 3)
+
+final_summary_by_Country$percent_protected_within <- round((final_summary_by_Country$area_KM2_KBA_Protected/final_summary_by_Country$area_KM2_int)*100, 2)
+final_summary_by_Country$percent_protected <- round((final_summary_by_Country$area_KM2_KBA_Protected/final_summary_by_Country$area_KM2_KBA)*100, 2)
+prem_KBA_summary<-final_summary_by_Country[!final_summary_by_Country$Sovereign == "South Africa",] #NOTE - South africa KBA data is missing // 
+
+#WIO -  Regional % of coastal KBAs protected
+sum(prem_KBA_summary$area_KM2_KBA_Protected)/sum(prem_KBA_summary$area_KM2_KBA)*100
+
+
+#Turtle nest
+turtle<-read.csv(here("_data_Target11", "Turtle_nest_MPA.csv"))
+dim(turtle) #178 turtle nests identified in the region
+turtle$nest_status_protection <- ifelse(turtle$COUNTRY_2 == "", "threatened", "protected")
+turtle$Country_sum<- ifelse(turtle$Country == "Mayotte", "France",
+                            ifelse(turtle$Country == "Réunion", "France",
+                                   ifelse(turtle$Country == "French Southern Territories","France",turtle$Country)))
+#unique(turtle$Country_sum)
+#No data recorded for Mauritius and Somalia
+nest_protection_summary <- as.data.frame(turtle %>%
+                              group_by (Country_sum) %>%
+                                  summarise(n=n()))
+
+nest_protected_sum <- as.data.frame(turtle[turtle$nest_status_protection == "protected",] %>%
+                                           group_by (Country_sum) %>%
+                                           summarise(n=n()))
+
+nest_protection_summary<-left_join(nest_protection_summary,nest_protected_sum,by="Country_sum",all=T)
+colnames(nest_protection_summary) <- c("Country","Total Number Nests", "Total number Nest protected")
+nest_protection_summary[is.na(nest_protection_summary)] <- 0
+
+nest_protection_summary$percent <- nest_protection_summary$`Total number Nest protected`/nest_protection_summary$`Total Number Nests`*100
+#WIO regional 
+sum(nest_protection_summary$`Total number Nest protected`)/(sum(nest_protection_summary$`Total Number Nests`))*100
+
+###IBAs protected (same data as KBa but filtered by confirmed IBAs)
+IBA_EEZ <-  KBA_EEZ[KBA_EEZ$IbaStatus == "confirmed",]
+IBA_MPA_int <- KBA_MPA_int[KBA_MPA_int$IbaStatus == "confirmed",]
+IBA_EEZ_int <- KBA_EEZ_int[KBA_EEZ_int$IbaStatus == "confirmed",]
+
+#GENERATE % SUMMARY by Territory
+unique(IBA_EEZ$Sovereign) #9 territories/ 1 dispute
+length(unique(IBA_EEZ$SitRecID)) #111 IBAs within EEZ - use SitRecID
+length(unique(IBA_MPA_int$SitRecID)) #45 IBAs within EEZ
+#KBA area
+areaIBAs<-as.data.frame(aggregate(area_KM2_KBA ~ SitRecID + Country + Sovereign, IBA_EEZ, max))
+areaIBAs_Protected<-as.data.frame(aggregate(area_KM2_KBA_Protected ~ SitRecID + Country, IBA_MPA_int,sum))
+areaIBA_Summary<-left_join(areaIBAs, areaIBAs_Protected, by=c("SitRecID","Country"),all=T)
+areaIBA_Summary[is.na(areaIBA_Summary)] <- 0
+head(areaIBA_Summary)
+
+int_IBAEEZarea <- as.data.frame(IBA_EEZ_int[,c(19,21)] %>%
+                                  group_by(Sovereign) %>%
+                                  summarise_all(list(sum)))
+#Summary - total IBA area protected by Country
+final_summaryIBA_by_Country <- as.data.frame(areaIBA_Summary[,3:5] %>%
+                                            group_by(Sovereign) %>%
+                                            summarise_all(list(sum)))
+
+final_summaryIBA_by_Country <- left_join(final_summaryIBA_by_Country,int_IBAEEZarea,by='Sovereign')
+final_summaryIBA_by_Country$area_KM2_int <- round(final_summaryIBA_by_Country$area_KM2_int, 3)
+
+final_summaryIBA_by_Country$percent_protected_within <- round((final_summaryIBA_by_Country$area_KM2_KBA_Protected/final_summaryIBA_by_Country$area_KM2_int)*100, 2)
+final_summaryIBA_by_Country$percent_protected <- round((final_summaryIBA_by_Country$area_KM2_KBA_Protected/final_summaryIBA_by_Country$area_KM2_KBA)*100, 2)
+prem_IBA_summary<-final_summaryIBA_by_Country[!final_summaryIBA_by_Country$Sovereign == "South Africa",] #NOTE - South africa KBA data is missing // 
+
+#WIO -  Regional % of coastal IBAs protected
+sum(prem_IBA_summary$area_KM2_KBA_Protected)/sum(prem_IBA_summary$area_KM2_KBA)*100
+
+
+
+
+#Potential spawning areas
+
+spawningMPA<-read.csv(here("_data_Target11", "MPA_geomorphic_joined.csv"))
+spawningMPA <- spawningMPA[spawningMPA$class %in% c("Reef Slope","Reef Crest") & spawningMPA$STATUS %in% "Working",]
+spawning_protection_summary <- as.data.frame(spawningMPA[,c("COUNTRY","area_m2")] %>%
+                                           group_by (COUNTRY) %>%
+                                             summarise_all(list(sum)))
+
+spawningEEZ<-read.csv(here("_data_Target11", "EEZ_geomorphic_area_joined.csv"))
+spawningEEZ <- spawningEEZ[spawningEEZ$class %in% c("Reef Slope","Reef Crest"),]
+spawningEEZ$Sovereign <- ifelse(spawningEEZ$Sovereign == "Comoro Islands", "Comoros", spawningEEZ$Sovereign)
+spawningEEZ <- spawningEEZ[spawningEEZ$Sovereign %in% c("Comoros","France","Seychelles","Mauritius","Mozambique",
+                           "Madagascar","Kenya","Somalia","Tanzania"),]
+
+spawning_area_summary <- as.data.frame(spawningEEZ[,c("Sovereign","area_m2")] %>%
+                                               group_by (Sovereign) %>%
+                                               summarise_all(list(sum)))
+
+colnames(spawning_area_summary) <- c("COUNTRY","total_aream2")
+
+spawning_protection_summary <- left_join(spawning_protection_summary,spawning_area_summary,by='COUNTRY')
+spawning_protection_summary$percent <- (spawning_protection_summary$area_m2/spawning_protection_summary$total_aream2)*100
+
+#WIO regional 
+sum(spawning_protection_summary$area_m2)/(sum(spawning_protection_summary$total_aream2))*100
+
+
+
+
+

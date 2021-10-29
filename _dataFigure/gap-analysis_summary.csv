@@ -1,0 +1,166 @@
+location,target,indicator,type,percent_protected
+Comoros,13,turtle_nest,count,50
+France,13,turtle_nest,count,42
+Kenya,13,turtle_nest,count,72
+Madagascar,13,turtle_nest,count,33.3
+Mauritius,13,turtle_nest,count,NA
+Mozambique,13,turtle_nest,count,37.9
+Seychelles,13,turtle_nest,count,8.1
+Somalia,13,turtle_nest,count,NA
+South Africa,13,turtle_nest,count,0
+Tanzania,13,turtle_nest,count,60
+WIO,13,turtle_nest,count,24.7
+Comoros,13,IBA,area,15.03
+France,13,IBA,area,0.67
+Kenya,13,IBA,area,16.45
+Madagascar,13,IBA,area,1.45
+Mauritius,13,IBA,area,0.22
+Mozambique,13,IBA,area,48.8
+Seychelles,13,IBA,area,55.2
+Somalia,13,IBA,area,0
+South Africa,13,IBA,area,NA
+Tanzania,13,IBA,area,59.2
+WIO,13,IBA,area,12.86
+Comoros,13,Dispersal corridor,count,40
+France,13,Dispersal corridor,count,50
+Kenya,13,Dispersal corridor,count,57.1
+Madagascar,13,Dispersal corridor,count,22.4
+Mauritius,13,Dispersal corridor,count,44.4
+Mozambique,13,Dispersal corridor,count,32.1
+Seychelles,13,Dispersal corridor,count,20
+Somalia,13,Dispersal corridor,count,0
+South Africa,13,Dispersal corridor,count,NA
+Tanzania,13,Dispersal corridor,count,76.4
+WIO,13,Dispersal corridor,count,46.2
+Comoros,13,TA spawning,area,5.3
+France,13,TA spawning,area,27.3
+Kenya,13,TA spawning,area,18.9
+Madagascar,13,TA spawning,area,12.8
+Mauritius,13,TA spawning,area,4.4
+Mozambique,13,TA spawning,area,41.5
+Seychelles,13,TA spawning,area,6.9
+Somalia,13,TA spawning,area,0
+South Africa,13,TA spawning,area,NA
+Tanzania,13,TA spawning,area,21.9
+WIO,13,TA spawning,area,22.69
+Comoros,11,total_protected_area,area,0.35
+France,11,total_protected_area,area,22.9
+Kenya,11,total_protected_area,area,0.63
+Madagascar,11,total_protected_area,area,0.58
+Mauritius,11,total_protected_area,area,0.01
+Mozambique,11,total_protected_area,area,3.8
+Seychelles,11,total_protected_area,area,77.7
+Somalia,11,total_protected_area,area,0
+South Africa,11,total_protected_area,area,22.3
+Tanzania,11,total_protected_area,area,1.65
+WIO,11,total_protected_area,area,21.9
+Comoros,11,KBA,area,3.67
+France,11,KBA,area,3
+Kenya,11,KBA,area,14.03
+Madagascar,11,KBA,area,4.86
+Mauritius,11,KBA,area,0.21
+Mozambique,11,KBA,area,17.03
+Seychelles,11,KBA,area,39.09
+Somalia,11,KBA,area,0
+South Africa,11,KBA,area,NA
+Tanzania,11,KBA,area,28.36
+WIO,11,KBA,area,6.6
+Comoros,11,mangrove,area,15.5
+France,11,mangrove,area,12.6
+Kenya,11,mangrove,area,3.2
+Madagascar,11,mangrove,area,0.6
+Mauritius,11,mangrove,area,NA
+Mozambique,11,mangrove,area,20.3
+Seychelles,11,mangrove,area,0.05
+Somalia,11,mangrove,area,0
+South Africa,11,mangrove,area,0
+Tanzania,11,mangrove,area,7
+WIO,11,mangrove,area,10.4
+Comoros,11,seagrass,area,61
+France,11,seagrass,area,87.1
+Kenya,11,seagrass,area,20.8
+Madagascar,11,seagrass,area,14.1
+Mauritius,11,seagrass,area,33.9
+Mozambique,11,seagrass,area,33.1
+Seychelles,11,seagrass,area,6.7
+Somalia,11,seagrass,area,0
+South Africa,11,seagrass,area,NA
+Tanzania,11,seagrass,area,23.6
+WIO,11,seagrass,area,21.2
+Comoros,11,coral reef,area,53.2
+France,11,coral reef,area,70.5
+Kenya,11,coral reef,area,28.3
+Madagascar,11,coral reef,area,22.5
+Mauritius,11,coral reef,area,26.6
+Mozambique,11,coral reef,area,41.4
+Seychelles,11,coral reef,area,8.4
+Somalia,11,coral reef,area,0
+South Africa,11,coral reef,area,NA
+Tanzania,11,coral reef,area,28.4
+WIO,11,coral reef,area,30.2
+Comoros,11,seamount,area,40
+France,11,seamount,area,0
+Kenya,11,seamount,area,NA
+Madagascar,11,seamount,area,0
+Mauritius,11,seamount,area,0
+Mozambique,11,seamount,area,0
+Seychelles,11,seamount,area,21.3
+Somalia,11,seamount,area,0
+South Africa,11,seamount,area,36.3
+Tanzania,11,seamount,area,0
+WIO,11,seamount,area,7.8
+Comoros,11,larval sources,count,80
+France,11,larval sources,count,64.2
+Kenya,11,larval sources,count,57.1
+Madagascar,11,larval sources,count,32
+Mauritius,11,larval sources,count,11.1
+Mozambique,11,larval sources,count,17.8
+Seychelles,11,larval sources,count,16
+Somalia,11,larval sources,count,0
+South Africa,11,larval sources,count,NA
+Tanzania,11,larval sources,count,85.2
+WIO,11,larval sources,count,42.3
+Comoros,11,larval sinks,count,40
+France,11,larval sinks,count,42.8
+Kenya,11,larval sinks,count,71.4
+Madagascar,11,larval sinks,count,28
+Mauritius,11,larval sinks,count,33.3
+Mozambique,11,larval sinks,count,39.2
+Seychelles,11,larval sinks,count,12
+Somalia,11,larval sinks,count,0
+South Africa,11,larval sinks,count,NA
+Tanzania,11,larval sinks,count,64.7
+WIO,11,larval sinks,count,36.1
+Comoros,11,larval sources of PA,count,40.1
+France,11,larval sources of PA,count,45.1
+Kenya,11,larval sources of PA,count,43.1
+Madagascar,11,larval sources of PA,count,38
+Mauritius,11,larval sources of PA,count,30
+Mozambique,11,larval sources of PA,count,42.6
+Seychelles,11,larval sources of PA,count,27.4
+Somalia,11,larval sources of PA,count,0
+South Africa,11,larval sources of PA,count,NA
+Tanzania,11,larval sources of PA,count,44.37
+WIO,11,larval sources of PA,count,0
+Comoros,13,seagrass_nursery,count,61.1
+France,13,seagrass_nursery,count,80.9
+Kenya,13,seagrass_nursery,count,34.3
+Madagascar,13,seagrass_nursery,count,23.4
+Mauritius,13,seagrass_nursery,count,31.2
+Mozambique,13,seagrass_nursery,count,30.8
+Seychelles,13,seagrass_nursery,count,12.8
+Somalia,13,seagrass_nursery,count,0
+South Africa,13,seagrass_nursery,count,NA
+Tanzania,13,seagrass_nursery,count,28.4
+WIO,13,seagrass_nursery,count,27.7
+Comoros,11,seagrass nursery of PA,count,99.9
+France,11,seagrass nursery of PA,count,99.6
+Kenya,11,seagrass nursery of PA,count,99.2
+Madagascar,11,seagrass nursery of PA,count,95.8
+Mauritius,11,seagrass nursery of PA,count,99.3
+Mozambique,11,seagrass nursery of PA,count,99.9
+Seychelles,11,seagrass nursery of PA,count,98.5
+Somalia,11,seagrass nursery of PA,count,0
+South Africa,11,seagrass nursery of PA,count,NA
+Tanzania,11,seagrass nursery of PA,count,99.2
+WIO,11,seagrass nursery of PA,count,98.4
