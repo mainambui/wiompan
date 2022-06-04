@@ -262,21 +262,24 @@ library(prioritizr)
 # set default options for printing tabular data
 options(tibble.width = Inf)
 
+##Create puvspr_dat table
+##createspec_dat table
 ##load the species/area dataframes
 library(data.table)
 setwd("/Users/maina/Documents/tbca/wiompan_mpa/tbca.planning/")
 temp = list.files(path="/Users/maina/Documents/tbca/wiompan_mpa/tbca.planning/",pattern="*.csv")
-sppList = lapply(temp, read.csv)
+sppList = lapply(temp[2:4], read.csv)
 puvspr_dat<-do.call(rbind,sppList)
 puvspr_dat$species<-as.factor(puvspr_dat$species)
-levels(puvspr_dat$species)
-puvspr_dat <-puvspr_dat %>% mutate(segment = cumsum(species != lag(species, default="")))
-
-
-puvspr_dat$species<-rleid(puvspr_dat$species)
+spec_dat<-data.frame(as.vector(levels(puvspr_dat$species)), seq(1:15),0.3,1)
+spec_dat<-spec_dat[,c(2,3,4,1)]
+colnames(spec_dat)<-c("id","prop","spf","name")
+puvspr_dat <-puvspr_dat %>% mutate(species = species %>% as.factor() %>% as.numeric())
+id<-unique(puvspr_dat$species)
 puvspr_dat<-puvspr_dat[,c("species","pu","amount")]
 head(puvspr_dat)
 write.csv(puvspr_dat,"puvspr_dat.csv")
+write.csv(spec_dat,"spec_dat.csv")
 
 
 
