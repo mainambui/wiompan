@@ -11,6 +11,7 @@ _________________
 #https://www.gurobi.com/documentation/9.1/refman/ins_the_r_package.html
 #Resources
 #https://mathmarecol.github.io/SpatialPlanning_Workshop2021/index.html
+#https://marxansolutions.org/
 #install.packages('/Library/gurobi912/mac64/R/gurobi_9.1-2_R_4.0.2.tgz', repos=NULL)
 #install.packages('slam')
 #source('/Library/gurobi912/mac64/examples/R/mip.R', chdir = TRUE)
@@ -125,12 +126,6 @@ writeOGR(obj=allwiopu,dsn='~/Documents/tbca/PlanningUnits', layer="wioMultilevel
 #box()
 #writeOGR(obj=pu.eez,dsn='~/Documents/tbca/PlanningUnits', layer="wioEEZ_5km", driver="ESRI Shapefile",overwrite_layer=TRUE)
 rm(list=ls())
-
-
-
-
-
-
 
 
 
@@ -267,9 +262,34 @@ library(prioritizr)
 # set default options for printing tabular data
 options(tibble.width = Inf)
 
+##load the species/area dataframes
+library(data.table)
+setwd("/Users/maina/Documents/tbca/wiompan_mpa/tbca.planning/")
+temp = list.files(path="/Users/maina/Documents/tbca/wiompan_mpa/tbca.planning/",pattern="*.csv")
+sppList = lapply(temp, read.csv)
+puvspr_dat<-do.call(rbind,sppList)
+puvspr_dat$species<-as.factor(puvspr_dat$species)
+levels(puvspr_dat$species)
+puvspr_dat <-puvspr_dat %>% mutate(segment = cumsum(species != lag(species, default="")))
+
+
+puvspr_dat$species<-rleid(puvspr_dat$species)
+puvspr_dat<-puvspr_dat[,c("species","pu","amount")]
+head(puvspr_dat)
+write.csv(puvspr_dat,"puvspr_dat.csv")
+
+
+
+
+
+tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
 
 # load polygon planning unit data
 data(sim_pu_polygons)
+
+
+
+
 head(sim_pu_polygons@data)
 
 
