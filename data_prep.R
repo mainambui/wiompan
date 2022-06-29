@@ -136,7 +136,7 @@ rm(list=ls())
 setwd("~/Documents/tbca/wiompan_mpa/")
 
 #read in plannimng units
-tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
+tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_8Jun2022/','tbca_pu_file_country_empty')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 #plot(tbca.pu)
@@ -170,10 +170,10 @@ puvspr.seasfloor.id<-puvspr[,c('species.id','pu','amount','species')]
 #colnames(puvspr.seasfloor.id)[1]<-'species'
 write.csv(puvspr.seasfloor.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seafloor.csv')
 
-
+rm(list=ls())
 ###ALLEN ATLAS##
 #read in plannimng units
-tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
+tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_8Jun2022/','tbca_pu_file_country_empty')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 ##extract coral seagass and reef geomorphology totbca
@@ -210,28 +210,31 @@ rm(list=ls())
 #######
 ##Coral and Seagrass
 #read in plannimng units
-tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
+tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_8Jun2022/','tbca_pu_file_country_empty')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 #plot(tbca.pu)
-files<-list.files(path='~/Documents/tbca/Data/Cleaned/WIO_Coral_Allen', pattern='shp$')
-dat<-readOGR(dsn="/Users/maina/Documents/tbca/Data/Cleaned/WIO_Coral_Allen",tools::file_path_sans_ext(files[1]))#change to 1 or 2 for coral and seagrass rspectively
+files<-list.files(path='~/Documents/tbca/Data/Cleaned/WIO_Seagrass_Allen_1Jun2022', pattern='shp$')
+dat<-readOGR(dsn="/Users/maina/Documents/tbca/Data/Cleaned/WIO_Seagrass_Allen_1Jun2022",tools::file_path_sans_ext(files[1]))#change to 1 or 2 for coral and seagrass rspectively
 dat1<-raster::crop(dat, extent(tbca.pu))
+#wio_eez_seagrass
 
 #convert to sf due to large memory##https://stackoverflow.com/questions/45128670/combining-spatialpointsdataframe-with-spatialpolygonsdataframe-error-maximum-re
 dat.sf<-st_as_sf(dat1)
 tbca.sf<-st_as_sf(tbca.pu)
 
 #check th lengths of levels omn category2 field in coral data. N per levcel seems sufficient. now use to breakup the data
-dat1@data %>% 
-  group_by(CATEGORY2) %>%
-  summarise(no_rows = length(CATEGORY2))
+#dat1@data %>% 
+#  group_by(CATEGORY2) %>%
+#  summarise(no_rows = length(CATEGORY2))
 
 ##run intersection of the cropped extent
-dat2 <- dat.sf%>%
-  group_by(CATEGORY2) %>%
-  do(sf::st_intersection(., tbca.sf))
-##convert output from above to sf and calculate the area
+#dat2 <- dat.sf%>%
+#  group_by(CATEGORY2) %>%
+#  do(sf::st_intersection(., tbca.sf))
+
+dat2 <- st_intersection(dat.sf, tbca.sf)
+
 dat3<-st_as_sf(dat2)
 dat3$area <- sf::st_area(dat3)/1000000
 puvspr<-aggregate(area~PU+ class, data=dat3, FUN=sum)
@@ -241,7 +244,7 @@ dat.ga = rle(puvspr$species)
 puvspr$species.id <- rep(seq_along(dat.ga$lengths), dat.ga$lengths)
 puvspr<-puvspr[order(puvspr$pu),]
 puvspr.id<-puvspr[,c('species.id','pu','amount','species')]
-write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.coral.allen.csv')
+write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seagrass.allen.csv')
 rm(list=ls())
 
 
@@ -249,11 +252,6 @@ rm(list=ls())
 #gravity of markkets
 #climate change
 #socioeconomic data
-
-
-
-
-
 ##################
 #Priortize R: tbca
 ##################
