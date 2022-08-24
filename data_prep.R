@@ -272,16 +272,6 @@ dat1<- spTransform(dat1, afr.alb)
 dat.sf<-st_as_sf(dat1)
 tbca.sf<-st_as_sf(tbca.pu)
 
-#check th lengths of levels omn category2 field in coral data. N per levcel seems sufficient. now use to breakup the data
-#dat1@data %>% 
-#  group_by(CATEGORY2) %>%
-#  summarise(no_rows = length(CATEGORY2))
-
-##run intersection of the cropped extent
-#dat2 <- dat.sf%>%
-#  group_by(CATEGORY2) %>%
-#  do(sf::st_intersection(., tbca.sf))
-
 dat2 <- st_intersection(dat.sf, tbca.sf)
 
 dat3<-st_as_sf(dat2)
@@ -293,7 +283,7 @@ dat.ga = rle(puvspr$species)
 puvspr$species.id <- rep(seq_along(dat.ga$lengths), dat.ga$lengths)
 puvspr<-puvspr[order(puvspr$pu),]
 puvspr.id<-puvspr[,c('species.id','pu','amount','species')]
-write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.mangrove.allen.csv')
+write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.mangrove.gmw.csv')
 rm(list=ls())
 
 
@@ -328,28 +318,19 @@ head(puvspr_dat)
 write.csv(puvspr_dat,"puvspr_dat.csv")
 write.csv(spec_dat,"spec_dat.csv")
 
+##replace wcmc mangrove with gfw
+puvspr_dat_fin<-read.csv("puvspr_dat.csv")
+puvspr_dat<-puvspr.id
+spec.dat<-read.csv('spec_dat.csv')
+puvspr_dat_fin1<-puvspr_dat_fin[!puvspr_dat_fin$species ==6,]
+puvspr_dat <-puvspr_dat %>% mutate(species = species %>% as.factor() %>% as.numeric())
+id<-unique(puvspr_dat$species)
+puvspr_dat<-puvspr_dat[,c("species","pu","amount")]
+head(puvspr_dat)
+puvspr_dat$species<-6
 
-
-
-
-tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_shared_8Oct2021/','tbca_pu_empty_250m_country')
-
-# load polygon planning unit data
-data(sim_pu_polygons)
-
-
-
-
-head(sim_pu_polygons@data)
-
-
-
-
-
-
-##
-
-GMW_S03W039_2020_v3
+puvspr_dat_fin2<-rbind(puvspr_dat_fin1[,(2:4)],puvspr_dat)
+write.csv(puvspr_dat_fin2,"puvspr_dat.csv")
 
 
 
