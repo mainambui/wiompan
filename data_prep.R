@@ -137,7 +137,7 @@ setwd("~/Documents/tbca/wiompan_mpa/")
 
 #read in plannimng units
 tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_8Jun2022/','tbca_pu_file_country_empty')
-tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
+tbca@data$PU<-rownames(tbca.pu@data)#add PU ID
 
 #plot(tbca.pu)
 files<-list.files(path='~/Documents/tbca/Data/Cleaned/WIO_Geomorphic/', pattern='shp$')
@@ -248,7 +248,7 @@ write.csv(puvspr.id,'~/Documents/tbca/wiompan_mpa/tbca.planning/puvspr.seagrass.
 rm(list=ls())
 
 
-########mangrove presence asence
+########mangrove area
 #read in plannimng units
 tbca.pu<-readOGR(dsn='~/Documents/tbca/PlanningUnits/TBCA_PU_file_8Jun2022/','tbca_pu_file_country_empty')
 tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
@@ -257,12 +257,16 @@ tbca.pu@data$PU<-rownames(tbca.pu@data)#add PU ID
 #files<-list.files(path='~/Dropbox/WIOMPAN/Data/WIOMangrove_MainaEtAl/Mangrove_Data/R356_mdp_mangrove_v3_vector/', pattern='shp$')
 #dat<-readOGR(dsn="~/Dropbox/WIOMPAN/Data/WIOMangrove_MainaEtAl/Mangrove_Data/R356_mdp_mangrove_v3_vector/",tools::file_path_sans_ext(files[1]))#change to 1 or 2 for coral and seagrass rspectively
 
-files<-list.files(path='~/Documents/tbca/Data/Cleaned/WIO_Mangroves_WCMC/', pattern='shp$')
-dat<-readOGR(dsn="~/Documents/tbca/Data/Cleaned/WIO_Mangroves_WCMC/",tools::file_path_sans_ext(files[1]))#change to 1 or 2 for coral and seagrass rspectively
+files<-list.files(path='~/Dropbox/WIOMPAN/Data/GIS Data_Majambo and Charles/Mangrove_2020/gmw_v3_2020_vec/', pattern='shp$')
+dat<-readOGR(dsn="~/Dropbox/WIOMPAN/Data/GIS Data_Majambo and Charles/Mangrove_2020/gmw_v3_2020_vec/",tools::file_path_sans_ext(files[1]))
 
 
-dat1<-raster::crop(dat, extent(tbca.pu))
-#wio_eez_seagrass
+afr.alb<-CRS("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs")
+
+roi.pu.wgs<- spTransform(tbca.pu, crs(dat))
+dat1<-raster::crop(dat, extent(roi.pu.wgs))
+dat1<- spTransform(dat1, afr.alb)
+
 
 #convert to sf due to large memory##https://stackoverflow.com/questions/45128670/combining-spatialpointsdataframe-with-spatialpolygonsdataframe-error-maximum-re
 dat.sf<-st_as_sf(dat1)
@@ -294,7 +298,7 @@ rm(list=ls())
 
 
 #pending layers
-#gravity of markkets
+#gravity of markets
 #climate change
 #socioeconomic data
 ##################
@@ -337,6 +341,15 @@ data(sim_pu_polygons)
 
 
 head(sim_pu_polygons@data)
+
+
+
+
+
+
+##
+
+GMW_S03W039_2020_v3
 
 
 
