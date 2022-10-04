@@ -335,9 +335,8 @@ write.csv(puvspr_dat_fin2,"puvspr_dat.csv")
 
 
 ##TAnzania
-dat<-readOGR(dsn="C:/Users/Maina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/2-Benefits/","tz_pufile_benefits_04102022")
-dat1<-readOGR(dsn="C:/Users/Maina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/1-PU_file/","tz_pufile_allhabs")
-dat2<-readOGR(dsn="C:/Users/Maina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/1-PU_file/","tz_pufile_habs")
+benefits<-readOGR(dsn="/Users/josephmaina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/2-Benefits/","tz_pufile_benefits_04102022")
+allhab<-readOGR(dsn="/Users/josephmaina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/1-PU_file/","tz_pufile_allhabs")
 
 
 dat1$INREEFFLT1<-dat1$INREEFFLT*dat1$Shape_Area
