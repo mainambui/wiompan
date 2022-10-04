@@ -338,17 +338,35 @@ write.csv(puvspr_dat_fin2,"puvspr_dat.csv")
 benefits<-readOGR(dsn="/Users/josephmaina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/2-Benefits/","tz_pufile_benefits_04102022")
 allhab<-readOGR(dsn="/Users/josephmaina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/1-PU_file/","tz_pufile_allhabs")
 
+#mangrove flood
+#benefits@data$tourism_mg_calc<-benefits@data$tourism_mg*10000*allhab@data$MANGROVE #Presence/Abcense
+benefits@data$mg_flood_T_calc<-benefits@data$mg_flood_T*10000*allhab@data$MANGROVE
 
-dat1$INREEFFLT1<-dat1$INREEFFLT*dat1$Shape_Area
-dat1$CORAL_REEF1<-dat1$CORAL_REEF*dat1$Shape_Area
-dat1$CORAL_REEF1<-dat1$CORAL_REEF*dat1$Shape_Area
+#coral reef flood
+benefits@data$cr_flood_b_calc<-benefits@data$cr_flood_b*10000*allhab@data$CORAL_REEF
+benefits@data$cr_flood_1_calc<-benefits@data$cr_flood_1*10000*allhab@data$CORAL_REEF
 
+#coral reef tourism
+benefits@data$tourism_cr_calc<-benefits@data$tourism_cr*10000*allhab@data$CORAL_REEF
 
+#fisheries
+benefits@data$fishrs_val_calc<-(allhab@data$CORAL_REEF+allhab@data$SEAGRASS+allhab@data$MANGROVE)*10000*16 # to check with Vera
 
+#indirect benefits
+benefits@data$Indirect<-rowSums(benefits@data[ , c("mg_flood_T_calc","cr_flood_b_calc","cr_flood_1_calc")], na.rm=TRUE)
 
+#direct benefits
+benefits@data$Direct<-rowSums(benefits@data[ , c("fishrs_val_calc","tourism_cr_calc")], na.rm=TRUE)
 
+#Total benefits
+benefits@data$Direct<-rowSums(benefits@data[ , c("Direct","Indirect")], na.rm=TRUE)
 
+writeOGR(obj=benefits,dsn="/Users/josephmaina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/2-Benefits/", layer="tz_pufile_benefits_05102022", driver="ESRI Shapefile",overwrite_layer=TRUE)
 
+#library(nls)
+y<-gravity
+x=benefit
+fit <- nls(y ~ SSasymp(t, yf, y0, log_alpha), data = xxx)
 
 
 
