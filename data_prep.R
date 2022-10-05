@@ -350,7 +350,7 @@ benefits@data$cr_flood_1_calc<-benefits@data$cr_flood_1*(allhab@data$CORAL_REEF/
 benefits@data$tourism_cr_calc<-benefits@data$tourism_cr*(allhab@data$CORAL_REEF/10000)
 
 #mangrove tourism
-benefits@data$tourism_mg_calc<-benefits@data$tourism_mg*(allhab@data$MANGROVE/10000)*2979.89
+benefits@data$tourism_mg_calc<-as.numeric(benefits@data$tourism_mg)*(allhab@data$MANGROVE/10000)*2979.89
 
 
 #fisheries
@@ -371,11 +371,11 @@ benefits@data$TotalBenefit<-rowSums(benefits@data[ , c("Direct","Indirect")], na
 
 
 #netbenefits
-benefits@data$netbenefit<-(benefits@data$Direct/cost)*benefits@data$Indirect
+benefits@data$netbenefit<-(benefits@data$Direct/benefits@data$cost_dolla)*benefits@data$Indirect
 
 
-writeOGR(obj=benefits,dsn="C:/Users/Maina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/2-Benefits/", layer="tz_pufile_benefits_05102022", driver="ESRI Shapefile",overwrite_layer=TRUE)
-
+writeOGR(obj=benefits,dsn="C:/Users/Maina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/2-Benefits/", layer="tz_pufile_benefits_05102022", driver="ESRI Shapefile",overwrite_layer=TRUE, layer_options = "RESIZE=YES")
+write.csv(benefits@data$netbenefit,"C:/Users/Maina/Dropbox/WIOMPAN/Data/2-GIS Data_final/USAID_Tanzania/2-Benefits/benefits_netbenefit.csv")
 #library(nls)
 y<-as.numeric(benefits@data$gravt)
 x=as.numeric(benefits@data$TotalBenefit)
